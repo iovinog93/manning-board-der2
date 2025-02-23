@@ -55,16 +55,16 @@ body {
 }
 
 .columns-container {
-    display: flex;
-    gap: var(--spacing-sm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .finger-column {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
-    min-width: 280px;
+    gap: 2px;
+    min-width: 300px;
 }
 
 .finger-subheader {
@@ -88,45 +88,43 @@ body {
 }
 
 .aisle-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 45px 1fr; /* Prima colonna per l'indice, seconda per il contenuto */
     align-items: center;
-    gap: 15px;
-    margin: var(--spacing-xs) 0;
     width: 100%;
+    margin: 2px 0;
 }
 
 .aisle {
-    width: 40px;  /* Larghezza fissa per contenere due cifre */
+    width: 40px;
     height: 18px;
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px;
     font-size: 12px;
     background-color: #f0f0f0;
     border-radius: var(--border-radius-sm);
-    margin-right: 5px; /* Spazio consistente dopo l'indice */
 }
 
 .input-pair {
-    display: flex;
-    gap: 50px;
-    flex: 1;
-    justify-content: flex-start; /* Cambiato da space-between a flex-start */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Due colonne uguali */
+    gap: 30px;
+    width: 100%;
 }
 
 .input-group {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) 30px; /* Prima colonna per input, seconda per badge */
     align-items: center;
-    width: calc(50% - 25px); /* Larghezza fissa per ogni gruppo */
-    gap: 15px;
+    gap: 10px;
 }
 
 
 /* Input Elements */
 .name-input {
-    width: 100px;
+    width: 100%;
     height: 18px;
     padding: 2px 5px;
     border: 1px solid var(--border-color);
@@ -144,11 +142,10 @@ body {
 
 /* Badge Container */
 .badge-container {
-    position: relative;
     width: 24px;
     height: 18px;
-    margin: 0 8px; /* Margini uniformi */
 }
+
 
 .badge-icon {
     width: 100%;
@@ -321,7 +318,8 @@ body {
     }
     
     .finger-pair {
-        min-width: 520px; /* Aumentato per accomodare il nuovo spazio */
+        min-width: 540px;
+        padding: 15px;
     }
 }
 

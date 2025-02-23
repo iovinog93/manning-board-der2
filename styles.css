@@ -71,7 +71,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    min-width: 240px; /* Aumentato leggermente */
+    min-width: 260px; /* Aumentato da 240px a 260px */
 }
 
 .finger-subheader {
@@ -116,7 +116,7 @@ body {
 
 .input-pair {
     display: flex;
-    gap: 30px;
+    gap: 50px; /* Aumentato da 30px a 50px */
     flex: 1;
     justify-content: space-between;
 }
@@ -124,19 +124,23 @@ body {
 .input-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px; /* Aumentato da 10px a 15px */
     flex: 1;
 }
 
 /* Input Elements */
 .name-input {
-    width: 100px;  /* Ridotto leggermente */
+    width: 90px;  /* Ridotto ulteriormente */
     height: 18px;
     padding: 2px 5px;
     border: 1px solid var(--border-color);
     font-size: 12px;
     border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-sm);
+
 }
+ 
+
 
 .selected-input {
     background-color: #ffeeba !important;
@@ -146,10 +150,10 @@ body {
 /* Badge Container */
 .badge-container {
     position: relative;
-    width: 24px;  /* Ridotto da 30px */
+    width: 24px;
     height: 18px;
-    margin-left: 5px;  /* Aggiunto margine */
-    margin-right: 5px; /* Aggiunto margine */
+    margin-left: 8px;  /* Aumentato da 5px a 8px */
+    margin-right: 8px; /* Aumentato da 5px a 8px */
 }
 
 .badge-icon {
@@ -323,7 +327,7 @@ body {
     }
     
     .finger-pair {
-        min-width: 400px;
+        min-width: 520px; /* Aumentato per accomodare il nuovo spazio */
     }
 }
 

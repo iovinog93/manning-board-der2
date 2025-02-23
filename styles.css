@@ -71,7 +71,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    min-width: 260px; /* Aumentato da 240px a 260px */
+    min-width: 280px; /* Aumentato per garantire spazio sufficiente */
 }
 
 .finger-subheader {
@@ -97,8 +97,9 @@ body {
 .aisle-row {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 15px;
     margin: var(--spacing-xs) 0;
+    width: 100%;
 }
 
 .aisle {
@@ -116,28 +117,30 @@ body {
 
 .input-pair {
     display: flex;
-    gap: 50px; /* Aumentato da 30px a 50px */
+    gap: 50px;
     flex: 1;
     justify-content: space-between;
+    align-items: center;
 }
 
 .input-group {
     display: flex;
     align-items: center;
-    gap: 15px; /* Aumentato da 10px a 15px */
+    gap: 15px;
     flex: 1;
+    width: 45%; /* Aggiunto per standardizzare la larghezza */
 }
+
 
 /* Input Elements */
 .name-input {
-    width: 90px;  /* Ridotto ulteriormente */
+    width: 100px; /* Larghezza fissa per tutti gli input */
     height: 18px;
     padding: 2px 5px;
     border: 1px solid var(--border-color);
     font-size: 12px;
     border-radius: var(--border-radius-sm);
-    border-radius: var(--border-radius-sm);
-
+    box-sizing: border-box; /* Importante per mantenere la larghezza uniforme */
 }
  
 
@@ -341,3 +344,18 @@ body {
         margin-bottom: var(--spacing-lg);
     }
 }
+
+/* Standardizziamo il contenitore delle textbox */
+.stower-container, 
+.picker-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Se necessario, aggiungi questa classe specifica per B1 e le altre righe problematiche */
+.special-row .name-input {
+    width: 100px;
+    margin-right: 15px;
+}
+

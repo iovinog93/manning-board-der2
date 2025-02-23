@@ -2,8 +2,8 @@
 :root {
     --primary-color: #232F3E;
     --secondary-color: #37475A;
-    --background-light: #f5f5f5;
     --border-color: #ccc;
+    --background-light: #f5f5f5;
     --border-radius-sm: 3px;
     --border-radius-md: 4px;
     --border-radius-lg: 6px;
@@ -11,7 +11,6 @@
     --spacing-sm: 5px;
     --spacing-md: 10px;
     --spacing-lg: 20px;
-    --spacing-xl: 40px;
 }
 
 /* Base styles */
@@ -26,20 +25,27 @@ body {
 /* Content Container */
 .content-container {
     display: flex;
-    gap: var(--spacing-xl);
+    gap: 40px;
     width: max-content;
-    padding: var(--spacing-lg);
+    padding: 20px;
 }
 
 /* Fingers Section */
 .fingers-section {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: 20px;
     min-width: 1400px;
 }
 
 .finger-pair {
-    min-width: 520px;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    min-width: 540px;
+    margin-right: 20px;
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 15px;
 }
 
@@ -49,22 +55,23 @@ body {
     padding: 8px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 5px;
     border-radius: var(--border-radius-md);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .columns-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    gap: 5px;
 }
 
 .finger-column {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    min-width: 300px;
+    gap: var(--spacing-xs);
+    min-width: 280px;
+    padding: 0 5px;
 }
 
 .finger-subheader {
@@ -74,66 +81,57 @@ body {
     text-align: center;
     font-size: 12px;
     border-radius: var(--border-radius-sm);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 5px;
 }
 
 /* Input Rows */
-.subheader-input {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin: var(--spacing-xs) 0;
-    padding: var(--spacing-xs);
-    background-color: var(--background-light);
-}
-
 .aisle-row {
-    display: grid;
-    grid-template-columns: 45px 1fr; /* Prima colonna per l'indice, seconda per il contenuto */
+    display: flex;
     align-items: center;
     width: 100%;
     margin: 2px 0;
 }
 
 .aisle {
-    width: 40px;
+    width: 35px;
     height: 18px;
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2px;
     font-size: 12px;
     background-color: #f0f0f0;
     border-radius: var(--border-radius-sm);
+    margin-right: 10px;
+    flex-shrink: 0;
 }
 
 .input-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Due colonne uguali */
-    gap: 30px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
     width: 100%;
+    margin-left: -5px;
 }
 
 .input-group {
-    display: grid;
-    grid-template-columns: minmax(100px, 1fr) 30px; /* Prima colonna per input, seconda per badge */
+    display: flex;
     align-items: center;
-    gap: 10px;
+    position: relative;
+    width: calc(50% - 20px);
 }
-
 
 /* Input Elements */
 .name-input {
-    width: 100%;
+    width: 100px;
     height: 18px;
     padding: 2px 5px;
     border: 1px solid var(--border-color);
     font-size: 12px;
     border-radius: var(--border-radius-sm);
-    box-sizing: border-box;
+    flex-shrink: 0;
 }
- 
-
 
 .selected-input {
     background-color: #ffeeba !important;
@@ -147,8 +145,8 @@ body {
     height: 18px;
     flex-shrink: 0;
     margin: 0 5px;
+    overflow: visible;
 }
-
 
 .badge-icon {
     width: 100%;
@@ -169,9 +167,9 @@ body {
 }
 
 .photo-popup {
-    display: none; /* Nascosto di default */
+    display: none;
     position: absolute;
-    z-index: 1000;
+       z-index: 1000;
     left: 100%;
     top: -50px;
     border: 2px solid var(--primary-color);
@@ -182,6 +180,11 @@ body {
     object-fit: contain;
     pointer-events: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-radius: var(--border-radius-sm);
+}
+
+.badge-container:hover .photo-popup {
+    display: block;
 }
 
 /* Tables Container */
@@ -190,8 +193,8 @@ body {
     flex-direction: column;
     gap: 15px;
     min-width: 320px;
-    padding-left: var(--spacing-lg);
-    margin-left: var(--spacing-xl);
+    padding-left: 20px;
+    margin-left: 40px;
     border-left: 2px solid var(--border-color);
 }
 
@@ -291,26 +294,10 @@ body {
 }
 
 /* Task Button Colors */
-.task-button.blue {
-    background-color: #4169E1;
-    color: white;
-}
-
-.task-button.yellow {
-    background-color: #FFD700;
-    color: black;
-}
-
-
-.task-button.green {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.task-button.orange {
-    background-color: #FF7F50;
-    color: white;
-}
+.task-button.blue { background-color: #4169E1; color: white; }
+.task-button.yellow { background-color: #FFD700; color: black; }
+.task-button.green { background-color: #4CAF50; color: white; }
+.task-button.orange { background-color: #FF7F50; color: white; }
 
 /* Responsive Design */
 @media (max-width: 1800px) {
@@ -320,8 +307,7 @@ body {
     }
     
     .finger-pair {
-        min-width: 540px;
-        padding: 15px;
+        min-width: 500px;
     }
 }
 
@@ -329,35 +315,4 @@ body {
     .fingers-section {
         flex-direction: column;
     }
-    
-    .finger-pair {
-        margin-right: 0;
-        margin-bottom: var(--spacing-lg);
-    }
 }
-
-/* Standardizziamo il contenitore delle textbox */
-.stower-container, 
-.picker-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-/* Se necessario, aggiungi questa classe specifica per B1 e le altre righe problematiche */
-.special-row .name-input {
-    width: 100px;
-    margin-right: 15px;
-}
-.badge-container:hover .photo-popup {
-    display: block;
-}
-.badge-container {
-    overflow: visible;
-}
-
-/* Aggiunta di spazio per il popup */
-.input-group {
-    position: relative; /* Per il corretto posizionamento del popup */
-}
-

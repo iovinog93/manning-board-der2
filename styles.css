@@ -1,7 +1,23 @@
+/* Variables */
+:root {
+    --primary-color: #232F3E;
+    --secondary-color: #37475A;
+    --background-light: #f5f5f5;
+    --border-color: #ccc;
+    --border-radius-sm: 3px;
+    --border-radius-md: 4px;
+    --border-radius-lg: 6px;
+    --spacing-xs: 2px;
+    --spacing-sm: 5px;
+    --spacing-md: 10px;
+    --spacing-lg: 20px;
+    --spacing-xl: 40px;
+}
+
 /* Base styles */
 body {
     margin: 0;
-    padding: 20px;
+    padding: var(--spacing-lg);
     font-family: Arial, sans-serif;
     min-width: 1800px;
     background-color: white;
@@ -10,15 +26,15 @@ body {
 /* Content Container */
 .content-container {
     display: flex;
-    gap: 40px;
+    gap: var(--spacing-xl);
     width: max-content;
-    padding: 20px;
+    padding: var(--spacing-lg);
 }
 
 /* Fingers Section */
 .fingers-section {
     display: flex;
-    gap: 20px;
+    gap: var(--spacing-lg);
     min-width: 1400px;
 }
 
@@ -26,79 +42,88 @@ body {
     display: flex;
     flex-direction: column;
     flex: 2;
-    min-width: 450px;
-    margin-right: 20px;
+    min-width: 480px;
+    margin-right: var(--spacing-xl);
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 15px;
 }
 
 .finger-header {
-    background-color: #232F3E;
+    background-color: var(--primary-color);
     color: white;
-    padding: 5px;
+    padding: 8px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .columns-container {
     display: flex;
-    gap: 5px;
+    gap: var(--spacing-sm);
 }
 
 .finger-column {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--spacing-xs);
+    min-width: 220px;
 }
 
 .finger-subheader {
-    background-color: #37475A;
+    background-color: var(--secondary-color);
     color: white;
-    padding: 3px;
+    padding: 6px;
     text-align: center;
     font-size: 12px;
-    margin-bottom: 2px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-sm);
 }
 
 /* Input Rows */
 .subheader-input {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin: 2px 0;
-    padding: 2px;
-    background-color: #f5f5f5;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
+    padding: var(--spacing-xs);
+    background-color: var(--background-light);
 }
 
 .aisle-row {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin: 2px 0;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
 }
 
 .aisle {
     width: 40px;
     height: 18px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-       justify-content: center;
-    padding: 2px;
+    justify-content: center;
+    padding: var(--spacing-xs);
     font-size: 12px;
     background-color: #f0f0f0;
+    border-radius: var(--border-radius-sm);
 }
 
 .input-pair {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     flex: 1;
 }
 
 .input-group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: var(--spacing-sm);
 }
 
 /* Input Elements */
@@ -106,13 +131,14 @@ body {
     width: 120px;
     height: 18px;
     padding: 2px 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     font-size: 12px;
+    border-radius: var(--border-radius-sm);
 }
 
 .selected-input {
     background-color: #ffeeba !important;
-    border: 2px solid #232F3E !important;
+    border: 2px solid var(--primary-color) !important;
 }
 
 /* Badge Container */
@@ -125,14 +151,16 @@ body {
 .badge-icon {
     width: 100%;
     height: 100%;
-    border: 1px solid #ccc;
+    border: 1p 1px solid var(--border-color);
     background-color: #f9f9f9;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    color: #232F3E;
+    color: var(--primary-color);
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s ease;
 }
 
 .badge-icon:hover {
@@ -145,265 +173,26 @@ body {
     z-index: 1000;
     left: 100%;
     top: -50px;
-    border: 2px solid #232F3E;
+    border: 2px solid var(--primary-color);
     background-color: white;
-    padding: 2px;
+    padding: var(--spacing-xs);
     width: 150px;
     height: 150px;
     object-fit: contain;
     pointer-events: none;
-}
-
-/* Tables Container */
-.tables-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-width: 300px;
-    padding-left: 20px;
-    border-left: 1px solid #ccc;
-    margin-left: 20px;
-}
-
-.induct-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.induct-table th,
-.induct-table td {
-    border: 1px solid #232F3E;
-    padding: 8px;
-    font-size: 12px;
-}
-
-.induct-table th {
-    background-color: #232F3E;
-    color: white;
-    text-align: center;
-}
-
-.table-row-content {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.table-data {
-    width: 60px;
-    text-align: left;
-    font-weight: bold;
-}
-
-/* FCLM Task Styles */
-.fclm-task-container {
-    margin-top: 20px;
-    width: 100%;
-    background-color: #333;
-    padding: 10px;
-    border: 1px solid #000;
-}
-
-.fclm-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.task-sections {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.task-column {
-    flex: 1;
-}
-
-.section-header {
-    background-color: white;
-    color: black;
-    text-align: center;
-    padding: 8px;
-    font-weight: bold;
-    border: 1px solid #000;
-}
-
-.task-button {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    margin: 2px 0;
-}
-
-/* Task Button Colors */
-.task-button.blue {
-    background-color: #4169E1;
-    color: white;
-}
-
-.task-button.yellow {
-    background-color: #FFD700;
-    color: black;
-}
-
-.task-button.green {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.task-button.orange {
-    background-color: #FF7F50;
-    color: white;
-}
-
-/* Fix per le sovrapposizioni */
-.finger-pair {
-    margin-right: 40px;
-    min-width: 480px;
-}
-
-.input-pair {
-    gap: 30px;
-}
-
-.finger-column {
-    min-width: 220px;
-}
-
-.tables-container {
-    min-width: 320px;
-    margin-left: 40px;
-}
-
-/* Responsive */
-@media (max-width: 1800px) {
-    body {
-        overflow-x: auto;
-    }
-}
-/* Colori e stili dei bordi */
-.finger-header {
-    background-color: #232F3E;
-    color: white;
-    padding: 8px;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.finger-subheader {
-    background-color: #37475A;
-    color: white;
-    padding: 6px;
-    text-align: center;
-    font-size: 12px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-}
-
-.finger-pair {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    padding: 15px;
-    margin-right: 20px;
-}
-
-.aisle {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-.name-input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: white;
-}
-
-.badge-icon {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-/* FCLM Task Styles */
-.fclm-task-container {
-    background-color: #333;
-    border-radius: 6px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.task-button.blue {
-    background-color: #4169E1;
-    color: white;
-    border-radius: 4px;
-}
-
-.task-button.yellow {
-    background-color: #FFD700;
-    color: black;
-    border-radius: 4px;
-}
-
-.task-button.green {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-}
-
-.task-button.orange {
-    background-color: #FF7F50;
-    color: white;
-    border-radius: 4px;
-}
-
-/* Induct Tables */
-.induct-table th {
-    background-color: #232F3E;
-    color: white;
-    border: 1px solid #232F3E;
-}
-
-.induct-table td {
-    border: 1px solid #ccc;
-    background-color: white;
-}
-
-/* Selected input style */
-.selected-input {
-    background-color: #ffeeba !important;
-    border: 2px solid #232F3E !important;
-}
-
-/* Photo popup */
-.photo-popup {
-    border: 2px solid #232F3E;
+    border-radius: var(--border-radius-md);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    border-radius: 4px;
 }
+
 /* Tables Container */
 .tables-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
     min-width: 320px;
-    padding-left: 20px;
-    margin-left: 40px;
-    border-left: 2px solid #ccc;
+    padding-left: var(--spacing-lg);
+    margin-left: var(--spacing-xl);
+    border-left: 2px solid var(--border-color);
 }
 
 .induct-table {
@@ -411,20 +200,20 @@ body {
     width: 100%;
     margin-bottom: 15px;
     background-color: white;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .induct-table th,
 .induct-table td {
-    border: 1px solid #232F3E;
+    border: 1px solid var(--primary-color);
     padding: 10px;
     font-size: 12px;
 }
 
 .induct-table th {
-    background-color: #232F3E;
+    background-color: var(--primary-color);
     color: white;
     text-align: center;
     padding: 12px;
@@ -444,12 +233,12 @@ body {
 
 /* FCLM Task Styles */
 .fclm-task-container {
-    margirgin-top: 25px;
+    margin-top: 25px;
     width: 100%;
     background-color: #333;
     padding: 15px;
     border: 1px solid #000;
-    border-radius: 6px;
+    border-radius: var(--border-radius-lg);
 }
 
 .fclm-header {
@@ -477,10 +266,10 @@ body {
     background-color: white;
     color: black;
     text-align: center;
-    padding: 1: 10px;
+    padding: 10px;
     font-weight: bold;
     border: 1px solid #000;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     margin-bottom: 10px;
 }
 
@@ -488,16 +277,17 @@ body {
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     font-weight: bold;
     cursor: pointer;
     text-align: center;
     margin: 4px 0;
-    transition: opacity 0.2s;
+    transition: all 0.2s ease;
 }
 
 .task-button:hover {
     opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 /* Task Button Colors */
@@ -510,6 +300,7 @@ body {
     background-color: #FFD700;
     color: black;
 }
+
 
 .task-button.green {
     background-color: #4CAF50;
@@ -525,7 +316,21 @@ body {
 @media (max-width: 1800px) {
     body {
         overflow-x: auto;
+        padding: var(--spacing-md);
+    }
+    
+    .finger-pair {
+        min-width: 400px;
     }
 }
 
-
+@media (max-width: 1400px) {
+    .fingers-section {
+        flex-direction: column;
+    }
+    
+    .finger-pair {
+        margin-right: 0;
+        margin-bottom: var(--spacing-lg);
+    }
+}

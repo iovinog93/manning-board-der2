@@ -39,14 +39,7 @@ body {
 }
 
 .finger-pair {
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    min-width: 480px;
-    margin-right: var(--spacing-xl);
-    background-color: white;
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    min-width: 520px;
     padding: 15px;
 }
 
@@ -71,7 +64,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    min-width: 280px; /* Aumentato per garantire spazio sufficiente */
+    min-width: 280px;
 }
 
 .finger-subheader {
@@ -103,44 +96,43 @@ body {
 }
 
 .aisle {
-    width: 40px;
+    width: 40px;  /* Larghezza fissa per contenere due cifre */
     height: 18px;
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xs);
+    padding: 2px;
     font-size: 12px;
     background-color: #f0f0f0;
     border-radius: var(--border-radius-sm);
+    margin-right: 5px; /* Spazio consistente dopo l'indice */
 }
 
 .input-pair {
     display: flex;
     gap: 50px;
     flex: 1;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start; /* Cambiato da space-between a flex-start */
 }
 
 .input-group {
     display: flex;
     align-items: center;
+    width: calc(50% - 25px); /* Larghezza fissa per ogni gruppo */
     gap: 15px;
-    flex: 1;
-    width: 45%; /* Aggiunto per standardizzare la larghezza */
 }
 
 
 /* Input Elements */
 .name-input {
-    width: 100px; /* Larghezza fissa per tutti gli input */
+    width: 100px;
     height: 18px;
     padding: 2px 5px;
     border: 1px solid var(--border-color);
     font-size: 12px;
     border-radius: var(--border-radius-sm);
-    box-sizing: border-box; /* Importante per mantenere la larghezza uniforme */
+    box-sizing: border-box;
 }
  
 
@@ -155,8 +147,7 @@ body {
     position: relative;
     width: 24px;
     height: 18px;
-    margin-left: 8px;  /* Aumentato da 5px a 8px */
-    margin-right: 8px; /* Aumentato da 5px a 8px */
+    margin: 0 8px; /* Margini uniformi */
 }
 
 .badge-icon {

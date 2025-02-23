@@ -142,8 +142,11 @@ body {
 
 /* Badge Container */
 .badge-container {
+    position: relative;
     width: 24px;
     height: 18px;
+    flex-shrink: 0;
+    margin: 0 5px;
 }
 
 
@@ -166,19 +169,18 @@ body {
 }
 
 .photo-popup {
-    display: none;
+    display: none; /* Nascosto di default */
     position: absolute;
     z-index: 1000;
     left: 100%;
     top: -50px;
     border: 2px solid var(--primary-color);
     background-color: white;
-    padding: var(--spacing-xs);
+    padding: 2px;
     width: 150px;
     height: 150px;
     object-fit: contain;
     pointer-events: none;
-    border-radius: var(--border-radius-md);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
@@ -346,5 +348,16 @@ body {
 .special-row .name-input {
     width: 100px;
     margin-right: 15px;
+}
+.badge-container:hover .photo-popup {
+    display: block;
+}
+.badge-container {
+    overflow: visible;
+}
+
+/* Aggiunta di spazio per il popup */
+.input-group {
+    position: relative; /* Per il corretto posizionamento del popup */
 }
 

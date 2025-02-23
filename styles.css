@@ -395,4 +395,137 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     border-radius: 4px;
 }
+/* Tables Container */
+.tables-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 320px;
+    padding-left: 20px;
+    margin-left: 40px;
+    border-left: 2px solid #ccc;
+}
+
+.induct-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.induct-table th,
+.induct-table td {
+    border: 1px solid #232F3E;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.induct-table th {
+    background-color: #232F3E;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+.table-row-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-data {
+    width: 70px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* FCLM Task Styles */
+.fclm-task-container {
+    margirgin-top: 25px;
+    width: 100%;
+    background-color: #333;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 6px;
+}
+
+.fclm-header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #444;
+}
+
+.task-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.task-column {
+    flex: 1;
+}
+
+.section-header {
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 1: 10px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.task-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin: 4px 0;
+    transition: opacity 0.2s;
+}
+
+.task-button:hover {
+    opacity: 0.9;
+}
+
+/* Task Button Colors */
+.task-button.blue {
+    background-color: #4169E1;
+    color: white;
+}
+
+.task-button.yellow {
+    background-color: #FFD700;
+    color: black;
+}
+
+.task-button.green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.task-button.orange {
+    background-color: #FF7F50;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1800px) {
+    body {
+        overflow-x: auto;
+    }
+}
+
 

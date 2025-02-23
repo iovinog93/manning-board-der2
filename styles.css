@@ -291,3 +291,108 @@ body {
         overflow-x: auto;
     }
 }
+/* Colori e stili dei bordi */
+.finger-header {
+    background-color: #232F3E;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.finger-subheader {
+    background-color: #37475A;
+    color: white;
+    padding: 6px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.finger-pair {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-right: 20px;
+}
+
+.aisle {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.name-input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.badge-icon {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* FCLM Task Styles */
+.fclm-task-container {
+    background-color: #333;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.task-button.blue {
+    background-color: #4169E1;
+    color: white;
+    border-radius: 4px;
+}
+
+.task-button.yellow {
+    background-color: #FFD700;
+    color: black;
+    border-radius: 4px;
+}
+
+.task-button.green {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+}
+
+.task-button.orange {
+    background-color: #FF7F50;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Induct Tables */
+.induct-table th {
+    background-color: #232F3E;
+    color: white;
+    border: 1px solid #232F3E;
+}
+
+.induct-table td {
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+/* Selected input style */
+.selected-input {
+    background-color: #ffeeba !important;
+    border: 2px solid #232F3E !important;
+}
+
+/* Photo popup */
+.photo-popup {
+    border: 2px solid #232F3E;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+

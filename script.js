@@ -71,7 +71,7 @@ function generateInductTables() {
                             <span class="table-data">Receiver</span>
                             <input type="text" class="name-input" placeholder="Enter login">
                             <div class="badge-container">
-                                   <div class="badge-icon">📷</div>
+                                <div class="badge-icon">📷</div>
                                 <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
@@ -123,7 +123,6 @@ function showPhoto(element) {
 function hidePhoto(element) {
     element.nextElementSibling.style.display = 'none';
 }
-
 // Input Selection and Swap Functions
 function selectInput(input) {
     if (selectedInputs.includes(input)) {
@@ -170,12 +169,19 @@ function saveData() {
         }
     });
     
-    database.ref('manning').set(data)
-        .then(() => console.log('Data saved successfully'))
-        .catch((error) => console.error('Error saving data:', error));
+    database.ref('manning').').set(data)
+        .then(() => {
+            console.log('Data saved successfully');
+            showNotification('Data saved successfully', 'success');
+        })
+        .catch((error) => {
+            console.error('Error saving data:', error);
+            showNotification('Error saving data', 'error');
+        });
 }
 
 function loadData() {
+    showLoading();
     database.ref('manning').on('value', (snapshot) => {
         const data = snapshot.val() || {};
         const inputs = document.querySelectorAll('.name-input');
@@ -188,7 +194,35 @@ function loadData() {
                 input.value = '';
             }
         });
+        hideLoading();
     });
+}
+
+// Utility Functions
+function showLoading() {
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    document.body.appendChild(loader);
+}
+
+function hideLoading() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        loader.remove();
+    }
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
 }
 
 // Sidebar Functions
@@ -222,6 +256,7 @@ function initializeSidebar() {
 
 // Event Listeners Setup
 function setupEventListeners() {
+    // Input events
     document.querySelectorAll('.name-input').forEach(input => {
         input.addEventListener('click', () => selectInput(input));
         input.addEventListener('input', () => {
@@ -230,24 +265,41 @@ function setupEventListeners() {
         });
     });
 
+    // Badge photo events
     document.querySelectorAll('.badge-icon').forEach(icon => {
         icon.addEventListener('mouseover', () => showPhoto(icon));
         icon.addEventListener('mouseout', () => hidePhoto(icon));
+    });
+
+    // Task button events
+    document.querySelectorAll('.task-button').forEach(button => {
+        button.addEventListener('click', () => {
+            console.log('Task clicked:', button.textContent);
+            // Add task-specific logic here
+        });
     });
 }
 
 // Page Initialization
 function initializePage() {
+    // Generate Finger content
     document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
     document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
     document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
     document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
     document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
     document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
+
+    // Generate Induct Tables
     document.getElementById('induct-tables-container').innerHTML = generateInductTables();
-    
+
+    // Setup event listeners
     setupEventListeners();
+    
+    // Initialize sidebar
     initializeSidebar();
+    
+    // Load saved data
     loadData();
 }
 
@@ -260,5 +312,10 @@ if (document.readyState === 'loading') {
 
 // Monitor Firebase connection
 database.ref('.info/connected').on('value', (snap) => {
-    console.log('Connection state:', snap.val() ? 'connected' : 'disconnected');
+    const isConnected = snap.val();
+    console.log('Connection state:', isConnected ? 'connected' : 'disconnected');
+    showNotification(
+        `Database ${isConnected ? 'connected' : 'disconnected'}`,
+        isConnected ? 'success' : 'error'
+    );
 });

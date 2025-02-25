@@ -3,306 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manning Board Application">
     <title>Manning Board</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Preconnect per ottimizzare il caricamento delle risorse -->
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://badgephotos.corp.amazon.com">
 </head>
 <body>
-    <!-- Sidebar Menu -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span>Station Command Center</span>
-            <button id="closeSidebar">×</button>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <div class="nav-item">Work items</div>
-                <div class="nav-item expandable">
-                    <span>Labor</span>
-                    <i class="arrow">›</i>
-                </div>
-                <div class="nav-item expandable">
-                    <span>Package summary</span>
-                    <i class="arrow">›</i>
-                </div>
-            </div>
-            
-            <div class="nav-section">
-                <div class="nav-header">Receive</div>
-                <div class="nav-item">Overview</div>
-                <div class="nav-item expandable">
-                    <span>Sort</span>
-                    <i class="arrow">›</i>
-                </div>
-                <div class="nav-item expandable">
-                    <span>Problem solve</span>
-                    <i class="arrow">›</i>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <!-- Overlay per sidebar mobile -->
+    <div class="overlay" id="overlay"></div>
 
-    <button id="openSidebar" class="menu-trigger">☰</button>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <header class="sidebar-header">
+            <h1>Station Command Center</h1>
+            <button id="closeSidebar" aria-label="Close sidebar">×</button>
+        </header>
+        <nav class="sidebar-nav">
+            <!-- Work Section -->
+            <section class="nav-section">
+                <h2 class="nav-header">Work</h2>
+                <div class="nav-item">Work items</div>
+                <div class="nav-item expandable" data-expandable>
+                    <span>Labor</span>
+                    <i class="arrow" aria-hidden="true">›</i>
+                </div>
+                <div class="nav-item expandable" data-expandable>
+                    <span>Package summary</span>
+                    <i class="arrow" aria-hidden="true">›</i>
+                </div>
+            </section>
+            
+            <!-- Receive Section -->
+            <section class="nav-section">
+                <h2 class="nav-header">Receive</h2>
+                <div class="nav-item">Overview</div>
+                <div class="nav-item expandable" data-expandable>
+                    <span>Sort</span>
+                    <i class="arrow" aria-hidden="true">›</i>
+                </div>
+                <div class="nav-item expandable" data-expandable>
+                    <span>Problem solve</span>
+                    <i class="arrow" aria-hidden="true">›</i>
+                </div>
+            </section>
+        </nav>
+    </aside>
+
+    <!-- Menu Trigger Button -->
+    <button id="openSidebar" class="menu-trigger" aria-label="Open menu">☰</button>
 
     <!-- Main Content -->
-    <div class="content-container">
+    <main class="content-container">
         <!-- Fingers Section -->
-        <div class="fingers-section">
+        <section class="fingers-section">
             <!-- Finger C -->
             <div class="finger-pair">
-                <div class="finger-header">FINGER C</div>
+                <h2 class="finger-header">FINGER C</h2>
                 <div class="columns-container">
                     <div class="finger-column">
-                        <div class="finger-subheader">C1-26</div>
-                        <div id="c1-26-container"></div>
+                        <h3 class="finger-subheader">C1-26</h3>
+                        <div id="c1-26-container" class="aisle-container"></div>
                     </div>
                     <div class="finger-column">
-                        <div class="finger-subheader">C27-52</div>
-                        <div id="c27-52-container"></div>
+                        <h3 class="finger-subheader">C27-52</h3>
+                        <div id="c27-52-container" class="aisle-container"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Finger B -->
             <div class="finger-pair">
-                <div class="finger-header">FINGER B</div>
+                <h2 class="finger-header">FINGER B</h2>
                 <div class="columns-container">
                     <div class="finger-column">
-                        <div class="finger-subheader">B1-26</div>
-                        <div id="b1-26-container"></div>
+                        <h3 class="finger-subheader">B1-26</h3>
+                        <div id="b1-26-container" class="aisle-container"></div>
                     </div>
                     <div class="finger-column">
-                        <div class="finger-subheader">B27-52</div>
-                        <div id="b27-52-container"></div>
+                        <h3 class="finger-subheader">B27-52</h3>
+                        <div id="b27-52-container" class="aisle-container"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Finger A -->
             <div class="finger-pair">
-                <div class="finger-header">FINGER A</div>
+                <h2 class="finger-header">FINGER A</h2>
                 <div class="columns-container">
                     <div class="finger-column">
-                        <div class="finger-subheader">A1-26</div>
-                        <div id="a1-26-container"></div>
+                        <h3 class="finger-subheader">A1-26</h3>
+                        <div id="a1-26-container" class="aisle-container"></div>
                     </div>
                     <div class="finger-column">
-                        <div class="finger-subheader">A27-52</div>
-                        <div id="a27-52-container"></div>
+                        <h3 class="finger-subheader">A27-52</h3>
+                        <div id="a27-52-container" class="aisle-container"></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Tables Section -->
-        <div class="tables-section">
+        <section class="tables-section">
             <div id="induct-tables-container"></div>
 
             <!-- Additional Roles -->
             <div class="additional-roles">
                 <!-- Truck Marshall -->
                 <table class="roles-table">
-                    <tr><th colspan="2">Truck Marshall</th></tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">TM 1</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                    <thead>
+                        <tr><th colspan="2">Truck Marshall</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">TM 1</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">TM 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">TM 2</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-                <!-- Water Spiderder -->
+
+                <!-- Continuerò con il resto delle tabelle nella prossima parte -->
+                <!-- Water Spider -->
                 <table class="roles-table">
-                    <tr><th>Water Sr Spider</th></tr>tr>
-                    <tr>
-                        <td>
-                               <div class="table-row-concontent">
-                                <span claclass="table-data">WS 1</span>
-                                <input type="text" cl class="name-input" placehoeholder="Enter login">
-                                   <div class="badge-container">
-                                    <div class=ss="badge-icon">📷</div>
-  
-                                    <img class="photo-po-popup" src="" alt="Badge Photo">
+                    <thead>
+                        <tr><th>Water Spider</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">WS 1</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                               </div>
-                        </td>
-                    </tr>
- >
-                    <tr>
-                        <td>
-                            <div cv class="table-row-co-contentent">
-                                <span class="table-data">WS 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">WS 2</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 3</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">WS 3</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 4</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">WS 4</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 5</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">WS 5</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <!-- Problem Solve -->
                 <table class="roles-table">
-                    <tr><th>Problem Solve</th></tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">PS 1</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                    <thead>
+                        <tr><th>Problem Solve</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">PS 1</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">PS 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">PS 2</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">PS 3</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">PS 3</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <!-- Side Picker -->
                 <table class="roles-table">
-                    <tr><th>Side Picker</th></tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">SP 1</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                    <thead>
+                        <tr><th>Side Picker</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">SP 1</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">SP 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-row-content">
+                                    <span class="table-data">SP 2</span>
+                                    <input type="text" class="name-input" placeholder="Enter login">
+                                    <div class="badge-container">
+                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <!-- FCLM Task Section -->
-    <div class="fclm-task-container">
+    <section class="fclm-task-container">
         <div class="task-sections">
             <div class="task-column">
-                <div class="section-header">TASK INDUCT</div>
-                <button class="task-button blue">TRUCK MARSHALL</button>
-                <button class="task-button blue">WATER SPIDER</button>
-                <button class="task-button blue">FEEDER</button>
-                <button class="task-button blue">PROBLEM SOLVE</button>
-                <button class="task-button blue">TRUCK RELO</button>
-                <button class="task-button blue">CARICO XPT</button>
+                <h3 class="section-header">TASK INDUCT</h3>
+                <button class="task-button blue" data-task="truck-marshall">TRUCK MARSHALL</button>
+                <button class="task-button blue" data-task="water-spider">WATER SPIDER</button>
+                <button class="task-button blue" data-task="feeder">FEEDER</button>
+                <button class="task-button blue" data-task="problem-solve">PROBLEM SOLVE</button>
+                <button class="task-button blue" data-task="truck-relo">TRUCK RELO</button>
+                <button class="task-button blue" data-task="carico-xpt">CARICO XPT</button>
             </div>
             <div class="task-column">
-                <div class="section-header">TASK FINGER</div>
-                <button class="task-button yellow">STRAIGHTENER</button>
-                <button class="task-button yellow">PICKER</button>
-                <button class="task-button yellow">DIVERTER</button>
-                <button class="task-button yellow">READINESS</button>
-                <button class="task-button orange">ENGAGE</button>
+                <h3 class="section-header">TASK FINGER</h3>
+                <button class="task-button yellow" data-task="straightener">STRAIGHTENER</button>
+                <button class="task-button yellow" data-task="picker">PICKER</button>
+                <button class="task-button yellow" data-task="diverter">DIVERTER</button>
+                <button class="task-button yellow" data-task="readiness">READINESS</button>
+                <button class="task-button orange" data-task="engage">ENGAGE</button>
             </div>
             <div class="task-column">
-                <div class="section-header">OTHER</div>
-                <button class="task-button green">5S</button>
-                <button class="task-button green">AMBASSADOR</button>
-                <button class="task-button green">NEW HIRE</button>
-                <button class="task-button green">ALL HANDS</button>
-                <button class="task-button orange">OVERSTAFF</button>
+                <h3 class="section-header">OTHER</h3>
+                <button class="task-button green" data-task="5s">5S</button>
+                <button class="task-button green" data-task="ambassador">AMBASSADOR</button>
+                <button class="task-button green" data-task="new-hire">NEW HIRE</button>
+                <button class="task-button green" data-task="all-hands">ALL HANDS</button>
+                <button class="task-button orange" data-task="overstaff">OVERSTAFF</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
+    <!-- Notification Container -->
+    <div id="notification-container" aria-live="polite"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loader" class="loader" hidden></div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
+    <script src="js/main.js" type="module" defer></script>
 </body>
 </html>

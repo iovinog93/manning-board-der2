@@ -127,21 +127,21 @@ function createInductTables() {
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Pusher">
                                     <div class="badge-photo-container">
-                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                        <img class="photo-popup" src="" alt="">
                                     </div>
                                 </div>
                                 <!-- Receiver -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Receiver">
                                     <div class="badge-photo-container">
-                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                        <img class="photo-popup" src="" alt="">
                                     </div>
                                 </div>
                                 <!-- Feeder -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Feeder">
                                     <div class="badge-photo-container">
-                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                        <img class="photo-popup" src="" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -167,13 +167,13 @@ function generateAisleRows(letter, start, end, isDualInput = false) {
                         <div class="input-group">
                             <input type="text" class="name-input" placeholder="Picker">
                             <div class="badge-photo-container">
-                                <img class="photo-popup" src="" alt="Badge Photo">
+                                <img class="photo-popup" src="" alt="">
                             </div>
                         </div>
                         <div class="input-group">
                             <input type="text" class="name-input" placeholder="Stower">
                             <div class="badge-photo-container">
-                                <img class="photo-popup" src="" alt="Badge Photo">
+                                <img class="photo-popup" src="" alt="">
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ function generateAisleRows(letter, start, end, isDualInput = false) {
                     <div class="input-group">
                         <input type="text" class="name-input" placeholder="Enter login">
                         <div class="badge-photo-container">
-                            <img class="photo-popup" src="" alt="Badge Photo">
+                            <img class="photo-popup" src="" alt="">
                         </div>
                     </div>
                 </div>

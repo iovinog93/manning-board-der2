@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manning Board</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- Sidebar Menu -->
@@ -51,11 +52,13 @@
             <div class="finger-pair">
                 <div class="finger-header">FINGER C</div>
                 <div class="columns-container">
-                    <div id="c1-26-container" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">C1-26</div>
+                        <div id="c1-26-container"></div>
                     </div>
-                    <div id="c27-52-container" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">C27-52</div>
+                        <div id="c27-52-container"></div>
                     </div>
                 </div>
             </div>
@@ -64,11 +67,13 @@
             <div class="finger-pair">
                 <div class="finger-header">FINGER B</div>
                 <div class="columns-container">
-                    <div id="b1-26-container" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">B1-26</div>
+                        <div id="b1-26-container"></div>
                     </div>
-                    <div id="b27-52-container" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">B27-52</div>
+                        <div id="b27-52-container"></div>
                     </div>
                 </div>
             </div>
@@ -77,11 +82,13 @@
             <div class="finger-pair">
                 <div class="finger-header">FINGER A</div>
                 <div class="columns-container">
-                    <div id="a1-26-container" r" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">A1-26</div>
+                        <div id="a1-26-container"></div>
                     </div>
-                    <div id="a27-52-container" class="finger-column">
-                        <!-- Contenuto generato dinamicamente -->
+                    <div class="finger-column">
+                        <div class="finger-subheader">A27-52</div>
+                        <div id="a27-52-container"></div>
                     </div>
                 </div>
             </div>
@@ -89,10 +96,7 @@
 
         <!-- Tables Section -->
         <div class="tables-section">
-            <!-- Induct Tables -->
-            <div id="induct-tables-container">
-                <!-- Contenuto generato dinamicamente -->
-            </div>
+            <div id="induct-tables-container"></div>
 
             <!-- Additional Roles -->
             <div class="additional-roles">
@@ -128,10 +132,12 @@
                 <!-- Water Spider -->
                 <table class="roles-table">
                     <tr><th>Water Spider</th></tr>
+                    <!-- 5 Water Spider slots -->
+                    ${Array.from({length: 5}, (_, i) => `
                     <tr>
                         <td>
                             <div class="table-row-content">
-                                <span class="table-data">WS 1</span>
+                                <span class="table-data">WS ${i+1}</span>
                                 <input type="text" class="name-input" placeholder="Enter login">
                                 <div class="badge-container">
                                     <div class="badge-icon">📷</div>
@@ -140,63 +146,18 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 3</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 4</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">WS 5</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    `).join('')}
                 </table>
 
                 <!-- Problem Solve -->
                 <table class="roles-table">
                     <tr><th>Problem Solve</th></tr>
+                    <!-- 3 Problem Solve slots -->
+                    ${Array.from({length: 3}, (_, i) => `
                     <tr>
                         <td>
                             <div class="table-row-content">
-                                <span class="table-data">PS 1</span>
+                                <span class="table-data">PS ${i+1}</span>
                                 <input type="text" class="name-input" placeholder="Enter login">
                                 <div class="badge-container">
                                     <div class="badge-icon">📷</div>
@@ -205,39 +166,18 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">PS 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">PS 3</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    `).join('')}
                 </table>
 
                 <!-- Side Picker -->
                 <table class="roles-table">
                     <tr><th>Side Picker</th></tr>
+                    <!-- 2 Side Picker slots -->
+                    ${Array.from({length: 2}, (_, i) => `
                     <tr>
                         <td>
                             <div class="table-row-content">
-                                <span class="table-data">SP 1</span>
+                                <span class="table-data">SP ${i+1}</span>
                                 <input type="text" class="name-input" placeholder="Enter login">
                                 <div class="badge-container">
                                     <div class="badge-icon">📷</div>
@@ -246,18 +186,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">SP 2</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <div class="badge-icon">📷</div>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    `).join('')}
                 </table>
             </div>
         </div>
@@ -266,6 +195,7 @@
     <!-- FCLM Task Section -->
     <div class="fclm-task-container">
         <div class="task-sections">
+            <!-- Task Induct Column -->
             <div class="task-column">
                 <div class="section-header">TASK INDUCT</div>
                 <button class="task-button blue">TRUCK MARSHALL</button>
@@ -275,6 +205,8 @@
                 <button class="task-button blue">TRUCK RELO</button>
                 <button class="task-button blue">CARICO XPT</button>
             </div>
+
+            <!-- Task Finger Column -->
             <div class="task-column">
                 <div class="section-header">TASK FINGER</div>
                 <button class="task-button yellow">STRAIGHTENER</button>
@@ -283,6 +215,8 @@
                 <button class="task-button yellow">READINESS</button>
                 <button class="task-button orange">ENGAGE</button>
             </div>
+
+            <!-- Other Column -->
             <div class="task-column">
                 <div class="section-header">OTHER</div>
                 <button class="task-button green">5S</button>
@@ -295,9 +229,10 @@
     </div>
 
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.x.x/firebase-database.js"></script>
-    <script src="firebase-config.js"></script>
-    <script src="main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
 </body>
 </html>

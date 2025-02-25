@@ -112,6 +112,7 @@ body {
     gap: 40px;
     width: max-content;
     padding: 20px;
+    margin-left: 60px; /* Space for menu trigger */
 }
 
 /* Fingers Section */
@@ -300,6 +301,14 @@ body {
     font-weight: bold;
 }
 
+/* Additional Roles */
+.additional-roles {
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 /* FCLM Task Section */
 .fclm-task-container {
     margin-top: 25px;
@@ -308,6 +317,7 @@ body {
     padding: 15px;
     border: 1px solid #000;
     border-radius: var(--border-radius-lg);
+    margin-left: 60px; /* Match content-container margin */
 }
 
 .task-sections {
@@ -354,6 +364,47 @@ body {
 .task-button.green { background-color: #4CAF50; color: white; }
 .task-button.orange { background-color: #FF7F50; color: white; }
 
+/* Loading Indicator */
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: var(--border-radius-md);
+    color: white;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.success { background-color: #4CAF50; }
+.notification.error { background-color: #f44336; }
+.notification.info { background-color: #2196F3; }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
 /* Overlay */
 .overlay {
     display: none;
@@ -368,14 +419,6 @@ body {
 
 .overlay.show {
     display: block;
-}
-
-/* Additional Roles Section */
-.additional-roles {
-    min-width: 320px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
 /* Responsive Design */

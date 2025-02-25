@@ -1,13 +1,13 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyBRPqn83QynSCDK7Zr_GPOAIso9nITaeiI",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+    messagingSenderId: "301373357630",
+    appId: "1:301373357630:web:344c0956ea271250131b6f",
+    measurementId: "YOG-R0PEJ95MQ4"
 };
 
 // Initialize Firebase
@@ -319,3 +319,247 @@ database.ref('.info/connected').on('value', (snap) => {
         isConnected ? 'success' : 'error'
     );
 });
+// Badge Photo Functions
+function updateBadgePhoto(input, imgElement) {
+    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+    imgElement.src = baseUrl + input.value;
+}
+
+function showPhoto(element) {
+    const img = element.nextElementSibling;
+    if (img.src && img.src.includes('uid=')) {
+        img.style.display = 'block';
+    }
+}
+
+function hidePhoto(element) {
+    element.nextElementSibling.style.display = 'none';
+}
+
+// Input Selection and Swap Functions
+function selectInput(input) {
+    console.log('Input selected:', input.value); // Debug log
+    
+    if (selectedInputs.includes(input)) {
+        input.classList.remove('selected-input');
+        selectedInputs = selectedInputs.filter(i => i !== input);
+    } else if (selectedInputs.length >= 2) {
+        selectedInputs.forEach(inp => inp.classList.remove('selected-input'));
+        selectedInputs = [input];
+        input.classList.add('selected-input');
+    } else {
+        selectedInputs.push(input);
+        input.classList.add('selected-input');
+    }
+
+    if (selectedInputs.length === 2) {
+        swapSelected();
+    }
+}
+
+function swapSelected() {
+    if (selectedInputs.length === 2) {
+        console.log('Swapping inputs:', selectedInputs[0].value, selectedInputs[1].value); // Debug log
+        
+        const temp = selectedInputs[0].value;
+        selectedInputs[0].value = selectedInputs[1].value;
+        selectedInputs[1].value = temp;
+
+        // Update badge photos
+        selectedInputs.forEach(input => {
+            const imgElement = input.nextElementSibling.querySelector('img');
+            updateBadgePhoto(input, imgElement);
+            input.classList.remove('selected-input');
+        });
+
+        selectedInputs = [];
+        saveData();
+    }
+}
+
+// Firebase Data Functions
+function saveData() {
+    const inputs = document.querySelectorAll('.name-input');
+    const data = {};
+    
+    try {
+        inputs.forEach((input, index) => {
+            if (input.value) {
+                data[index] = input.value.trim();
+            }
+        });
+        
+        showLoading();
+        
+        return database.ref('manning').set(data)
+            .then(() => {
+                console.log('Data saved successfully');
+                showNotification('Data saved successfully', 'success');
+            })
+            .catch((error) => {
+                console.error('Error saving data:', error);
+                showNotification('Error saving data', 'error');
+            })
+            .finally(() => {
+                hideLoading();
+            });
+    } catch (error) {
+        console.error('Error processing data:', error);
+        hideLoading();
+        showNotification('Error processing data', 'error');
+    }
+}
+
+function loadData() {
+    showLoading();
+    
+    try {
+        database.ref('manning').on('value', (snapshot) => {
+            const data = snapshot.val() || {};
+            const inputs = document.querySelectorAll('.name-input');
+            
+            inputs.forEach((input, index) => {
+                if (data[index]) {
+                    input.value = data[index];
+                    const imgElement = input.nextElementSibling.querySelector('img');
+                    updateBadgePhoto(input, imgElement);
+                } else {
+                    input.value = '';
+                }
+            });
+            
+            hideLoading();
+            showNotification('Data loaded successfully', 'success');
+        }, (error) => {
+            console.error('Error loading data:', error);
+            hideLoading();
+            showNotification('Error loading data', 'error');
+        });
+    } catch (error) {
+        console.error('Error setting up data listener:', error);
+        hideLoading();
+        showNotification('Error setting up data listener', 'error');
+    }
+}
+// Badge Photo Functions
+function updateBadgePhoto(input, imgElement) {
+    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+    imgElement.src = baseUrl + input.value;
+}
+
+function showPhoto(element) {
+    const img = element.nextElementSibling;
+    if (img.src && img.src.includes('uid=')) {
+        img.style.display = 'block';
+    }
+}
+
+function hidePhoto(element) {
+    element.nextElementSibling.style.display = 'none';
+}
+
+// Input Selection and Swap Functions
+function selectInput(input) {
+    console.log('Input selected:', input.value); // Debug log
+    
+    if (selectedInputs.includes(input)) {
+        input.classList.remove('selected-input');
+        selectedInputs = selectedInputs.filter(i => i !== input);
+    } else if (selectedInputs.length >= 2) {
+        selectedInputs.forEach(inp => inp.classList.remove('selected-input'));
+        selectedInputs = [input];
+        input.classList.add('selected-input');
+    } else {
+        selectedInputs.push(input);
+        input.classList.add('selected-input');
+    }
+
+    if (selectedInputs.length === 2) {
+        swapSelected();
+    }
+}
+
+function swapSelected() {
+    if (selectedInputs.length === 2) {
+        console.log('Swapping inputs:', selectedInputs[0].value, selectedInputs[1].value); // Debug log
+        
+        const temp = selectedInputs[0].value;
+        selectedInputs[0].value = selectedInputs[1].value;
+        selectedInputs[1].value = temp;
+
+        // Update badge photos
+        selectedInputs.forEach(input => {
+            const imgElement = input.nextElementSibling.querySelector('img');
+            updateBadgePhoto(input, imgElement);
+            input.classList.remove('selected-input');
+        });
+
+        selectedInputs = [];
+        saveData();
+    }
+}
+
+// Firebase Data Functions
+function saveData() {
+    const inputs = document.querySelectorAll('.name-input');
+    const data = {};
+    
+    try {
+        inputs.forEach((input, index) => {
+            if (input.value) {
+                data[index] = input.value.trim();
+            }
+        });
+        
+        showLoading();
+        
+        return database.ref('manning').set(data)
+            .then(() => {
+                console.log('Data saved successfully');
+                showNotification('Data saved successfully', 'success');
+            })
+            .catch((error) => {
+                console.error('Error saving data:', error);
+                showNotification('Error saving data', 'error');
+            })
+            .finally(() => {
+                hideLoading();
+            });
+    } catch (error) {
+        console.error('Error processing data:', error);
+        hideLoading();
+        showNotification('Error processing data', 'error');
+    }
+}
+
+function loadData() {
+    showLoading();
+    
+    try {
+        database.ref('manning').on('value', (snapshot) => {
+            const data = snapshot.val() || {};
+            const inputs = document.querySelectorAll('.name-input');
+            
+            inputs.forEach((input, index) => {
+                if (data[index]) {
+                    input.value = data[index];
+                    const imgElement = input.nextElementSibling.querySelector('img');
+                    updateBadgePhoto(input, imgElement);
+                } else {
+                    input.value = '';
+                }
+            });
+            
+            hideLoading();
+            showNotification('Data loaded successfully', 'success');
+        }, (error) => {
+            console.error('Error loading data:', error);
+            hideLoading();
+            showNotification('Error loading data', 'error');
+        });
+    } catch (error) {
+        console.error('Error setting up data listener:', error);
+        hideLoading();
+        showNotification('Error setting up data listener', 'error');
+    }
+}

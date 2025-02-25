@@ -263,7 +263,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-xs);
-    font-size: 0.875rem; /* aumentato da 0.75rem */
+    font-size: 0.8rem; /* aumentato da 0.75rem */
     background-color: white;
     border-radius: var(--border-radius-sm);
     font-weight: bold;

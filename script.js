@@ -169,7 +169,7 @@ function saveData() {
         }
     });
     
-    database.ref('manning').').set(data)
+    database.ref('manning').set(data)
         .then(() => {
             console.log('Data saved successfully');
             showNotification('Data saved successfully', 'success');

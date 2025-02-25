@@ -300,7 +300,7 @@ body {
 }
 
 .name-input.selected-input {
-    background-color: #ffeeba;
+    background-color: #b4d656;
     border: 2px solid var(--primary-color);
 }
 

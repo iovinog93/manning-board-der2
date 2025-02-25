@@ -1,5 +1,5 @@
-// config.js
-export const firebaseConfig = {
+// Firebase Configuration
+const firebaseConfig = {
     apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
@@ -10,398 +10,205 @@ export const firebaseConfig = {
     measurementId: "YOG-R0PEJ95MQ4"
 };
 
-// utils.js
-export const utils = {
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
-    showNotification(message, type = 'info') {
-        const container = document.getElementById('notification-container');
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
-        
-        container.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease forwards';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
-    },
+// Global variables
+let selectedInputs = [];
 
-    showLoading() {
-        document.getElementById('loader').hidden = false;
-        document.querySelector('.overlay').classList.add('show');
-    },
+// Utility Functions
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+}
 
-    hideLoading() {
-        document.getElementById('loader').hidden = true;
-        document.querySelector('.overlay').classList.remove('show');
-    },
+function showLoading() {
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    document.body.appendChild(loader);
+}
 
-    validateInput(value) {
-        return typeof value === 'string' && 
-               value.trim().length > 0 && 
-               value.trim().length <= 50;
-    }
-};
+function hideLoading() {
+    const loader = document.querySelector('.loader');
+    if (loader) loader.remove();
+}
 
-// domGenerator.js
-export class DOMGenerator {
-    static generateAisleRows(letter, start, end, isDualInput = false) {
-        const fragment = document.createDocumentFragment();
-        
-        for (let i = start; i <= end; i++) {
-            const row = document.createElement('div');
-            row.className = 'aisle-row';
-            
-            if (isDualInput) {
-                row.innerHTML = `
+// DOM Generation Functions
+function generateAisleRows(letter, start, end, isDualInput = false) {
+    let html = '';
+    for (let i = start; i <= end; i++) {
+        if (isDualInput) {
+            html += `
+                <div class="aisle-row">
                     <div class="aisle">${letter}${i}</div>
                     <div class="input-pair">
                         <div class="input-group">
-                            <input type="text" class="name-input" data-position="${letter}${i}-picker" placeholder="Picker">
+                            <input type="text" class="name-input" placeholder="Picker">
                             <div class="badge-container">
-                                <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                <div class="badge-icon">📷</div>
+                                <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
-                        <div class="input-group">
-                            <input type="text" class="name-input" data-position="${letter}${i}-stower" placeholder="Stower">
+                           <div class="input-group">
+                            <input type="text" class="na"name-input" placeholder="Stower">
                             <div class="badge-container">
-                                <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                <div class="badge-icon">📷</div>
+                                <img class="photo-popup" src="" alt="Badgadge Photo">
                             </div>
                         </div>
                     </div>
-                `;
-            } else {
-                row.innerHTML = `
-                    <div class="aisle">${letter}${i}</div>
-                    <input type="text" class="name-input" data-position="${letter}${i}" placeholder="Enter login">
-                    <div class="badge-container">
-                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
-                    </div>
-                `;
-            }
-            
-            fragment.appendChild(row);
-        }
-        
-        return fragment;
-    }
-
-    static generateInductTables() {
-        const fragment = document.createDocumentFragment();
-        
-        for (let i = 1; i <= 6; i++) {
-            const table = document.createElement('table');
-            table.className = 'induct-table';
-            table.innerHTML = `
-                <thead>
-                    <tr><th>Induct ${i}</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="table-row-content">
-                                <span class="table-data">Receiver</span>
-                                <input type="text" class="name-input" data-position="induct-${i}-receiver" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                    <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Simili per Feeder e Pusher -->
-                </tbody>
+                </div>
             `;
-            fragment.appendChild(table);
-        }
-        
-        return fragment;
-    }
-}
-
-// databaseManager.js
-export class DatabaseManager {
-    constructor(firebase, config) {
-        if (!DatabaseManager.instance) {
-            firebase.initializeApp(config);
-            this.database = firebase.database();
-            this.setupConnectionMonitoring();
-            DatabaseManager.instance = this;
-        }
-        return DatabaseManager.instance;
-    }
-
-    setupConnectionMonitoring() {
-        this.database.ref('.info/connected').on('value', (snap) => {
-            const isConnected = snap.val();
-            utils.showNotification(
-                `Database ${isConnected ? 'connected' : 'disconnected'}`,
-                isConnected ? 'success' : 'error'
-            );
-        });
-    }
-
-    async saveData(data) {
-        try {
-            utils.showLoading();
-            await this.database.ref('manning').set(data);
-            utils.showNotification('Data saved successfully', 'success');
-        } catch (error) {
-            console.error('Error saving data:', error);
-            utils.showNotification('Error saving data', 'error');
-        } finally {
-            utils.hideLoading();
-        }
-    }
-
-    subscribeToData(callback) {
-        try {
-            utils.showLoading();
-            this.database.ref('manning').on('value', (snapshot) => {
-                const data = snapshot.val() || {};
-                callback(data);
-                utils.hideLoading();
-            }, (error) => {
-                console.error('Error loading data:', error);
-                utils.showNotification('Error loading data', 'error');
-                utils.hideLoading();
-            });
-        } catch (error) {
-            console.error('Error setting up data listener:', error);
-            utils.showNotification('Error setting up data listener', 'error');
-            utils.hideLoading();
-        }
-    }
-
-    unsubscribeFromData() {
-        this.database.ref('manning').off();
-    }
-}
-
-// inputManager.js
-export class InputManager {
-    constructor(databaseManager) {
-        this.selectedInputs = [];
-        this.databaseManager = databaseManager;
-        this.saveDataDebounced = utils.debounce(this.saveData.bind(this), 500);
-    }
-
-    handleInputSelect(input) {
-        if (this.selectedInputs.includes(input)) {
-            input.classList.remove('selected-input');
-            this.selectedInputs = this.selectedInputs.filter(i => i !== input);
-        } else if (this.selectedInputs.length >= 2) {
-            this.selectedInputs.forEach(inp => inp.classList.remove('selected-input'));
-            this.selectedInputs = [input];
-            input.classList.add('selected-input');
         } else {
-            this.selectedInputs.push(input);
-            input.classList.add('selected-input');
-        }
-
-        if (this.selectedInputs.length === 2) {
-            this.swapSelectedInputs();
+            html += `
+                <div class="aisle-row">
+                    <div class="aisle">${letter}${i}</div>
+                    <input type="text" class="name-input" placeholder="Enter login">
+                    <div class="badge-container">
+                        <div class="badge-icon">📷</div>
+                        <img class="photo-popup" src="" alt="Badge Photo">
+                    </div>
+                </div>
+            `;
         }
     }
+    return html;
+}
 
-    swapSelectedInputs() {
-        if (this.selectedInputs.length === 2) {
-            const [input1, input2] = this.selectedInputs;
-            const temp = input1.value;
-            input1.value = input2.value;
-            input2.value = temp;
+// Input and Badge Functions
+function updateBadgePhoto(input) {
+    const imgElement = input.nextElementSibling.querySelector('img');
+    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+    imgElement.src = baseUrl + input.value;
+}
 
-            this.selectedInputs.forEach(input => {
-                this.updateBadgePhoto(input);
-                input.classList.remove('selected-input');
+function showPhoto(element) {
+    const img = element.nextElementSibling;
+    if (img.src && img.src.includes('uid=')) {
+        img.style.display = 'block';
+    }
+}
+
+function hidePhoto(element) {
+    element.nextElementSibling.style.display = 'none';
+}
+
+function selectInput(input) {
+    if (selectedInputs.includes(input)) {
+        input.classList.remove('selected-input');
+        selectedInputs = selectedInputs.filter(i => i !== input);
+    } else if (selectedInputs.length >= 2) {
+        selectedInputs.forEach(inp => inp.classList.remove('selected-input'));
+        selectedInputs = [input];
+        input.classList.add('selected-input');
+    } else {
+        selectedInputs.push(input);
+        input.classList.add('selected-input');
+    }
+
+    if (selectedInputs.length === 2) {
+        swapSelected();
+    }
+}
+
+function swapSelected() {
+    if (selectedInputs.length === 2) {
+        const temp = selectedInputs[0].value;
+        selectedInputs[0].value = selectedInputs[1].value;
+        selectedInputs[1].value = temp;
+
+        selectedInputs.forEach(input => {
+            updateBadgePhoto(input);
+            input.classList.remove('selected-input');
+        });
+
+        selectedInputs = [];
+        saveData();
+    }
+}
+
+// Firebase Functions
+function saveData() {
+    const inputs = document.querySelectorAll('.name-input');
+    const data = {};
+    
+    inputs.forEach((input, index) => {
+        if (input.value) {
+            data[index] = input.value;
+        }
+    });
+    
+    showLoading();
+    database.ref('manning').set(data)
+        .then(() => {
+            hideLoading();
+            showNotification('Data saved successfully', 'success');
+        })
+        .catch(error => {
+            hideLoading();
+            showNotification('Error saving data', 'error');
+            console.error('Error:', error);
+        });
+}
+
+function loadData() {
+    showLoading();
+    database.ref('manning').once('value')
+        .then(snapshot => {
+            const data = snapshot.val() || {};
+            const inputs = document.querySelectorAll('.name-input');
+            
+            inputs.forEach((input, index) => {
+                if (data[index]) {
+                    input.value = data[index];
+                    updateBadgePhoto(input);
+                }
             });
-
-            this.selectedInputs = [];
-            this.saveDataDebounced();
-        }
-    }
-
-    updateBadgePhoto(input) {
-        const imgElement = input.nextElementSibling.querySelector('img');
-        if (imgElement && input.value) {
-            const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
-            imgElement.src = `${baseUrl}${input.value.trim()}`;
-        }
-    }
-
-    saveData() {
-        const data = {};
-        document.querySelectorAll('.name-input').forEach(input => {
-            if (input.value && utils.validateInput(input.value)) {
-                data[input.dataset.position] = input.value.trim();
-            }
+            hideLoading();
+        })
+        .catch(error => {
+            hideLoading();
+            showNotification('Error loading data', 'error');
+            console.error('Error:', error);
         });
-        this.databaseManager.saveData(data);
-    }
-
-    loadData(data) {
-        document.querySelectorAll('.name-input').forEach(input => {
-            const position = input.dataset.position;
-            if (data[position]) {
-                input.value = data[position];
-                this.updateBadgePhoto(input);
-            } else {
-                input.value = '';
-            }
-        });
-    }
 }
 
-// eventManager.js
-export class EventManager {
-    constructor(inputManager) {
-        this.inputManager = inputManager;
-        this.setupEventListeners();
-    }
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Generate content
+    document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
+    document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
+    document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
+    document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
+    document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
+    document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
 
-    setupEventListeners() {
-        // Input events
-        document.querySelectorAll('.name-input').forEach(input => {
-            input.addEventListener('click', () => this.inputManager.handleInputSelect(input));
-            input.addEventListener('input', () => {
-                this.inputManager.updateBadgePhoto(input);
-                this.inputManager.saveDataDebounced();
-            });
+    // Setup event listeners
+    document.querySelectorAll('.name-input').forEach(input => {
+        input.addEventListener('click', () => selectInput(input));
+        input.addEventListener('input', () => {
+            updateBadgePhoto(input);
+            saveData();
         });
+    });
 
-        // Badge photo events
-        document.querySelectorAll('.badge-icon').forEach(icon => {
-            icon.addEventListener('mouseover', () => this.showPhoto(icon));
-            icon.addEventListener('mouseout', () => this.hidePhoto(icon));
-        });
+    document.querySelectorAll('.badge-icon').forEach(icon => {
+        icon.addEventListener('mouseover', () => showPhoto(icon));
+        icon.addEventListener('mouseout', () => hidePhoto(icon));
+    });
 
-        // Sidebar events
-        this.setupSidebarEvents();
+    // Initialize sidebar
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
 
-        // Task button events
-        this.setupTaskButtonEvents();
-    }
+    openBtn.addEventListener('click', () => sidebar.classList.add('open'));
+    closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
 
-    showPhoto(element) {
-        const img = element.nextElementSibling;
-        if (img.src && img.src.includes('uid=')) {
-            img.classList.add('visible');
-        }
-    }
-
-    hidePhoto(element) {
-        element.nextElementSibling.classList.remove('visible');
-    }
-
-    setupSidebarEvents() {
-        const sidebar = document.getElementById('sidebar');
-        const openBtn = document.getElementById('openSidebar');
-        const closeBtn = document.getElementById('closeSidebar');
-        const overlay = document.querySelector('.overlay');
-
-        openBtn.addEventListener('click', () => {
-            sidebar.classList.add('open');
-            overlay.classList.add('show');
-        });
-
-        const closeSidebar = () => {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('show');
-        };
-
-        closeBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-
-        document.querySelectorAll('.expandable').forEach(item => {
-            item.addEventListener('click', () => item.classList.toggle('open'));
-        });
-    }
-
-    setupTaskButtonEvents() {
-        document.querySelectorAll('.task-button').forEach(button => {
-            button.addEventListener('click', () => {
-                const task = button.dataset.task;
-                utils.showNotification(`Task ${task} clicked`, 'info');
-                // Implementare la logica specifica per ogni task
-            });
-        });
-    }
-}
-
-// main.js
-import { firebaseConfig } from './config.js';
-import { DatabaseManager } from './databaseManager.js';
-import { InputManager } from './inputManager.js';
-import { EventManager } from './eventManager.js';
-import { DOMGenerator } from './domGenerator.js';
-
-class App {
-    constructor() {
-        this.initializeApp();
-    }
-
-    async initializeApp() {
-        try {
-            // Initialize managers
-            this.databaseManager = new DatabaseManager(firebase, firebaseConfig);
-            this.inputManager = new InputManager(this.databaseManager);
-            this.eventManager = new EventManager(this.inputManager);
-
-            // Generate DOM
-            this.generateContent();
-
-            // Load initial data
-            this.databaseManager.subscribeToData(data => this.inputManager.loadData(data));
-
-            // Setup cleanup
-            window.addEventListener('unload', () => this.cleanup());
-        } catch (error) {
-            console.error('Error initializing app:', error);
-            utils.showNotification('Error initializing application', 'error');
-        }
-    }
-
-    generateContent() {
-        // Generate Finger content
-        ['c', 'b', 'a'].forEach(letter => {
-            document.getElementById(`${letter}1-26-container`).appendChild(
-                DOMGenerator.generateAisleRows(letter.toUpperCase(), 1, 26, letter !== 'c')
-            );
-            document.getElementById(`${letter}27-52-container`).appendChild(
-                DOMGenerator.generateAisleRows(letter.toUpperCase(), 27, 52, letter !== 'c')
-            );
-        });
-
-        // Generate Induct Tables
-        document.getElementById('induct-tables-container').appendChild(
-            DOMGenerator.generateInductTables()
-        );
-    }
-
-    cleanup() {
-        this.databaseManager.unsubscribeFromData();
-    }
-}
-
-// Initialize app when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new App());
-} else {
-    new App();
-}
-
+    // Load initial data
+    loadData();
+});

@@ -9,6 +9,44 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
+    <!-- Nel tuo index.html, aggiungi questo HTML -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <span>Station Command Center</span>
+        <button id="closeSidebar">×</button>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">
+            <div class="nav-item">Work items</div>
+            <div class="nav-item expandable">
+                <span>Labor</span>
+                <i class="arrow">›</i>
+            </div>
+            <div class="nav-item expandable">
+                <span>Package summary</span>
+                <i class="arrow">›</i>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-header">Receive</div>
+            <div class="nav-item">Overview</div>
+            <div class="nav-item expandable">
+                <span>Sort</span>
+                <i class="arrow">›</i>
+            </div>
+            <div class="nav-item expandable">
+                <span>Problem solve</span>
+                <i class="arrow">›</i>
+            </div>
+        </div>
+
+        <!-- Aggiungi altre sezioni come necessario -->
+    </nav>
+</div>
+
+<button id="openSidebar" class="menu-trigger">☰</button>
+
     <div class="content-wrapper">
         <div class="content-container">
             <div class="fingers-section">

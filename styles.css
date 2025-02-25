@@ -316,3 +316,102 @@ body {
         flex-direction: column;
     }
 }
+/* Aggiungi questo CSS al tuo file styles.css */
+.sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    background-color: #232f3e;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #37475a;
+    border-bottom: 1px solid #4a5868;
+}
+
+#closeSidebar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar-nav {
+    padding: 10px 0;
+}
+
+.nav-section {
+    margin-bottom: 20px;
+}
+
+.nav-header {
+    padding: 10px 20px;
+    color: #8c9196;
+    font-size: 14px;
+}
+
+.nav-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-item:hover {
+    background-color: #37475a;
+}
+
+.expandable .arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.expandable.open .arrow {
+    transform: rotate(90deg);
+}
+
+.menu-trigger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    background: #232f3e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Overlay scuro quando il menu è aperto */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.overlay.show {
+    display: block;
+}
+

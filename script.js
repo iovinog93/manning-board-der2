@@ -269,6 +269,40 @@ if (document.readyState === 'loading') {
 } else {
     initializePage();
 }
+// Aggiungi questo JavaScript al tuo file main.js
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+    
+    // Crea l'overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    // Apri sidebar
+    openBtn.addEventListener('click', () => {
+        sidebar.classList.add('open');
+        overlay.classList.add('show');
+    });
+
+    // Chiudi sidebar
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // Gestione elementi espandibili
+    document.querySelectorAll('.expandable').forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('open');
+        });
+    });
+});
+
 
 // Monitor Firebase connection
 database.ref('.info/connected').on('value', (snap) => {

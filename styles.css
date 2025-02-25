@@ -157,49 +157,49 @@ body {
     padding: 0 5px;
 }
 
-/* Tables Section */
-.tables-section {
-    display: flex;
-    gap: 20px;
-}
-
-.roles-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 15px;
-    background-color: white;
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.roles-table th,
-.roles-table td {
-    border: 1px solid var(--primary-color);
-    padding: 10px;
-    font-size: 12px;
-}
-
-.roles-table th {
-    background-color: var(--primary-color);
+.finger-subheader {
+    background-color: var(--secondary-color);
     color: white;
+    padding: 6px;
     text-align: center;
-    padding: 12px;
+    font-size: 12px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 5px;
 }
 
-/* Input Styles */
-.table-row-content {
+/* Aisle Rows */
+.aisle-row {
     display: flex;
     align-items: center;
+    margin: 2px 0;
     gap: 10px;
 }
 
-.table-data {
-    width: 70px;
-    text-align: left;
-    font-weight: bold;
+.aisle {
+    width: 35px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    font-size: 12px;
+    background-color: #f0f0f0;
+    border-radius: var(--border-radius-sm);
 }
 
+.input-pair {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+/* Input Styles */
 .name-input {
     width: 100px;
     height: 18px;
@@ -237,6 +237,10 @@ body {
     border-radius: var(--border-radius-sm);
 }
 
+.badge-icon:hover {
+    background-color: #e9e9e9;
+}
+
 .photo-popup {
     display: none;
     position: absolute;
@@ -254,6 +258,102 @@ body {
     border-radius: var(--border-radius-sm);
 }
 
+/* Tables Section */
+.tables-section {
+    display: flex;
+    gap: 20px;
+}
+
+.roles-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.roles-table th,
+.roles-table td {
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+    font-size: 12px;
+}
+
+.roles-table th {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+.table-row-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-data {
+    width: 70px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* FCLM Task Section */
+.fclm-task-container {
+    margin-top: 25px;
+    width: 100%;
+    background-color: #333;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: var(--border-radius-lg);
+}
+
+.task-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.task-column {
+    flex: 1;
+}
+
+.section-header {
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 10px;
+}
+
+.task-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin: 4px 0;
+    transition: all 0.2s ease;
+}
+
+.task-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Task Button Colors */
+.task-button.blue { background-color: #4169E1; color: white; }
+.task-button.yellow { background-color: #FFD700; color: black; }
+.task-button.green { background-color: #4CAF50; color: white; }
+.task-button.orange { background-color: #FF7F50; color: white; }
+
 /* Overlay */
 .overlay {
     display: none;
@@ -270,10 +370,28 @@ body {
     display: block;
 }
 
+/* Additional Roles Section */
+.additional-roles {
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 /* Responsive Design */
 @media (max-width: 1800px) {
     body {
         overflow-x: auto;
         padding: var(--spacing-md);
+    }
+    
+    .finger-pair {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .fingers-section {
+        flex-direction: column;
     }
 }

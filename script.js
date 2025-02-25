@@ -1,11 +1,11 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
+    apiKey: "***************************************",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "30137335760",
+    messagingSenderId: "************",
     appId: "1:301373357630:web:344c0956ea271250131b6f",
     measurementId: "YOG-R0PEJ95MQ4"
 };
@@ -28,6 +28,34 @@ function showNotification(message, type = 'info') {
 
 function padNumber(number) {
     return number < 10 ? '0' + number : number.toString();
+}
+
+// Badge Photo Functions
+function updateBadgePhoto(input) {
+    const photoContainer = input.parentElement.querySelector('.badge-photo-container');
+    const photo = photoContainer.querySelector('.photo-popup');
+    
+    if (photo) {
+        try {
+            if (input.value.trim()) {
+                const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+                photo.src = baseUrl + input.value.trim();
+                
+                // Gestione errori caricamento immagine
+                photo.onerror = function() {
+                    this.src = '';
+                    this.alt = '';
+                };
+            } else {
+                photo.src = '';
+                photo.alt = '';
+            }
+        } catch (error) {
+            console.error('Error updating badge photo:', error);
+            photo.src = '';
+            photo.alt = '';
+        }
+    }
 }
 
 // Input Selection Functions
@@ -64,6 +92,7 @@ function swapInputs() {
 
         selectedInputs.forEach(input => {
             input.classList.remove('selected-input');
+            updateBadgePhoto(input);
         });
 
         selectedInputs = [];
@@ -82,7 +111,7 @@ function saveToFirebase() {
 
     database.ref('manning').set(data)
         .then(() => showNotification('Saved successfully', 'success'))
-        .catch(error => showNotification('Error saving data', 'error'));
+        .catch(errorror => showNotification('Error saving data', 'error'));
 }
 
 function loadFromFirebase() {
@@ -93,20 +122,13 @@ function loadFromFirebase() {
                 if (data[index]) {
                     input.value = data[index];
                     updateBadgePhoto(input);
+                } else {
+                    input.value = '';
+                    updateBadgePhoto(input);
                 }
             });
         })
         .catch(error => showNotification('Error loading data', 'error'));
-}
-
-// Badge Photo Functions
-function updateBadgePhoto(input) {
-    const photoContainer = input.parentElement.querySelector('.badge-photo-container');
-    const photo = photoContainer.querySelector('.photo-popup');
-    if (photo && input.value) {
-        const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
-        photo.src = baseUrl + input.value.trim();
-    }
 }
 
 // Generate Induct Tables
@@ -123,7 +145,7 @@ function createInductTables() {
                         <td>
                             <div class="table-row-content">
                                 <span class="table-data">Table ${i + 1}</span>
-                                <!-- Pusher -->
+                                   <!-- Pusher -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Pusher">
                                     <div class="badge-photo-container">
@@ -245,6 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add input event listeners
     document.querySelectorAll('.name-input').forEach(input => {
         input.addEventListener('input', () => {
+            updateBadgePhoto(input);
+            saveToFirebase();
+        });
+        
+        // Aggiungi anche un listener per l'evento change
+        input.addEventListener('change', () => {
             updateBadgePhoto(input);
             saveToFirebase();
         });

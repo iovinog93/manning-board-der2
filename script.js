@@ -1,11 +1,11 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
+    apiKey: "***************************************",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "30137335760",
+    messagingSenderId: "************",
     appId: "1:301373357630:web:344c0956ea271250131b6f",
     measurementId: "YOG-R0PEJ95MQ4"
 };
@@ -53,11 +53,11 @@ function generateAisleRows(letter, start, end, isDualInput = false) {
                                 <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
-                           <div class="input-group">
-                            <input type="text" class="na"name-input" placeholder="Stower">
+                        <div class="input-group">
+                            <input type="text" class="name-input" placeholder="Stower">
                             <div class="badge-container">
                                 <div class="badge-icon">📷</div>
-                                <img class="photo-popup" src="" alt="Badgadge Photo">
+                                <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
                     </div>

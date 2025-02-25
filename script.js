@@ -30,29 +30,6 @@ function padNumber(number) {
     return number < 10 ? '0' + number : number.toString();
 }
 
-// Badge Photo Functions
-function showPhoto(badgeIcon) {
-    const photoPopup = badgeIcon.parentElement.querySelector('.photo-popup');
-    if (photoPopup && photoPopup.src) {
-        photoPopup.style.display = 'block';
-    }
-}
-
-function hidePhoto(badgeIcon) {
-    const photoPopup = badgeIcon.parentElement.querySelector('.photo-popup');
-    if (photoPopup) {
-        photoPopup.style.display = 'none';
-    }
-}
-
-function updateBadgePhoto(input) {
-    const photoPopup = input.parentElement.querySelector('.photo-popup');
-    if (photoPopup && input.value) {
-        const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
-        photoPopup.src = baseUrl + input.value.trim();
-    }
-}
-
 // Input Selection Functions
 function selectInput(input) {
     if (selectedInputs.includes(input)) {
@@ -78,8 +55,14 @@ function swapInputs() {
         selectedInputs[0].value = selectedInputs[1].value;
         selectedInputs[1].value = temp;
 
+        // Scambia anche le foto
+        const photo1 = selectedInputs[0].parentElement.querySelector('.photo-popup');
+        const photo2 = selectedInputs[1].parentElement.querySelector('.photo-popup');
+        const tempSrc = photo1.src;
+        photo1.src = photo2.src;
+        photo2.src = tempSrc;
+
         selectedInputs.forEach(input => {
-            updateBadgePhoto(input);
             input.classList.remove('selected-input');
         });
 
@@ -116,13 +99,23 @@ function loadFromFirebase() {
         .catch(error => showNotification('Error loading data', 'error'));
 }
 
+// Badge Photo Functions
+function updateBadgePhoto(input) {
+    const photoContainer = input.parentElement.querySelector('.badge-photo-container');
+    const photo = photoContainer.querySelector('.photo-popup');
+    if (photo && input.value) {
+        const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+        photo.src = baseUrl + input.value.trim();
+    }
+}
+
 // Generate Induct Tables
 function createInductTables() {
     const inductTablesContainer = document.getElementById('induct-tables-container');
     const tableHTML = `
-        <table class="induct-table">
+        <table class="roles-table">
             <thead>
-                <tr><th colspan="2">Induct Tables</th></tr>
+                <tr><th>Induct Tables</th></tr>
             </thead>
             <tbody>
                 ${Array.from({length: 8}, (_, i) => `
@@ -130,30 +123,24 @@ function createInductTables() {
                         <td>
                             <div class="table-row-content">
                                 <span class="table-data">Table ${i + 1}</span>
-                                
                                 <!-- Pusher -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Pusher">
-                                    <div class="badge-container">
-                                        <button class="badge-icon">📷</button>
+                                    <div class="badge-photo-container">
                                         <img class="photo-popup" src="" alt="Badge Photo">
                                     </div>
                                 </div>
-                                
                                 <!-- Receiver -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Receiver">
-                                    <div class="badge-container">
-                                        <button class="badge-icon">📷</button>
+                                    <div class="badge-photo-container">
                                         <img class="photo-popup" src="" alt="Badge Photo">
                                     </div>
                                 </div>
-                                
                                 <!-- Feeder -->
                                 <div class="input-group">
                                     <input type="text" class="name-input" placeholder="Feeder">
-                                    <div class="badge-container">
-                                        <button class="badge-icon">📷</button>
+                                    <div class="badge-photo-container">
                                         <img class="photo-popup" src="" alt="Badge Photo">
                                     </div>
                                 </div>
@@ -167,7 +154,6 @@ function createInductTables() {
     inductTablesContainer.innerHTML = tableHTML;
 }
 
-
 // Generate Aisle Rows
 function generateAisleRows(letter, start, end, isDualInput = false) {
     let html = '';
@@ -180,15 +166,13 @@ function generateAisleRows(letter, start, end, isDualInput = false) {
                     <div class="input-pair">
                         <div class="input-group">
                             <input type="text" class="name-input" placeholder="Picker">
-                            <div class="badge-container">
-                                <button class="badge-icon">📷</button>
+                            <div class="badge-photo-container">
                                 <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
                         <div class="input-group">
                             <input type="text" class="name-input" placeholder="Stower">
-                            <div class="badge-container">
-                                <button class="badge-icon">📷</button>
+                            <div class="badge-photo-container">
                                 <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
@@ -199,10 +183,11 @@ function generateAisleRows(letter, start, end, isDualInput = false) {
             html += `
                 <div class="aisle-row">
                     <div class="aisle">${letter}${aisleNumber}</div>
-                    <input type="text" class="name-input" placeholder="Enter login">
-                    <div class="badge-container">
-                        <button class="badge-icon">📷</button>
-                        <img class="photo-popup" src="" alt="Badge Photo">
+                    <div class="input-group">
+                        <input type="text" class="name-input" placeholder="Enter login">
+                        <div class="badge-photo-container">
+                            <img class="photo-popup" src="" alt="Badge Photo">
+                        </div>
                     </div>
                 </div>
             `;
@@ -250,19 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize sidebar
     initializeSidebar();
 
-    // Add event listeners for badge photos and input selection
+    // Add event listeners for input selection
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('name-input')) {
             selectInput(e.target);
-        }
-        if (e.target.classList.contains('badge-icon')) {
-            showPhoto(e.target);
-        }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.classList.contains('badge-icon')) {
-            hidePhoto(e.target);
         }
     });
 

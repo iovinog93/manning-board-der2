@@ -6,25 +6,21 @@
     <meta name="description" content="Manning Board Application">
     <title>Manning Board</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Preconnect per ottimizzare il caricamento delle risorse -->
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://badgephotos.corp.amazon.com">
 </head>
 <body>
-    <!-- Overlay per sidebar mobile -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <header class="sidebar-header">
             <h1>Station Command Center</h1>
             <button id="closeSidebar" aria-label="Close sidebar">×</button>
         </header>
         <nav class="sidebar-nav">
-            <!-- Work Section -->
             <section class="nav-section">
                 <h2 class="nav-header">Work</h2>
-                <div class="nav-item">Roster</div>
+                <div class="nav-item">Work items</div>
                 <div class="nav-item expandable" data-expandable>
                     <span>Labor</span>
                     <i class="arrow" aria-hidden="true">›</i>
@@ -35,7 +31,6 @@
                 </div>
             </section>
             
-            <!-- Receive Section -->
             <section class="nav-section">
                 <h2 class="nav-header">Receive</h2>
                 <div class="nav-item">Overview</div>
@@ -51,13 +46,10 @@
         </nav>
     </aside>
 
-    <!-- Menu Trigger Button -->
     <button id="openSidebar" class="menu-trigger" aria-label="Open menu">☰</button>
 
-    <!-- Main Content -->
     <main class="content-container">
-        <!-- Fingers Section -->
-        <section class="fingers-section">
+        <section class="f="fingers-section">
             <!-- Finger C -->
             <div class="finger-pair">
                 <h2 class="finger-header">FINGER C</h2>
@@ -104,26 +96,25 @@
             </div>
         </section>
 
-        <!-- Tables Section -->
         <section class="tables-section">
             <div id="induct-tables-container"></div>
 
-            <!-- Additional Roles -->
             <div class="additional-roles">
                 <!-- Truck Marshall -->
                 <table class="roles-table">
                     <thead>
-                        <tr><th colspan="2">Truck Marshall</th></tr>
+                        <tr><th>Truck Marshall</th></tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">TM 1</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -132,10 +123,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">TM 2</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -143,7 +135,6 @@
                     </tbody>
                 </table>
 
-                <!-- Continuerò con il resto delle tabelle nella prossima parte -->
                 <!-- Water Spider -->
                 <table class="roles-table">
                     <thead>
@@ -154,10 +145,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">WS 1</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -166,10 +158,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">WS 2</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -178,10 +171,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">WS 3</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -190,10 +184,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">WS 4</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -202,10 +197,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">WS 5</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -223,10 +219,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">PS 1</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -235,10 +232,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">PS 2</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -247,10 +245,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">PS 3</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -268,10 +267,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">SP 1</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -280,10 +280,11 @@
                             <td>
                                 <div class="table-row-content">
                                     <span class="table-data">SP 2</span>
-                                    <input type="text" class="name-input" placeholder="Enter login">
-                                    <div class="badge-container">
-                                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <div class="input-group">
+                                        <input type="text" class="name-input" placeholder="Enter login">
+                                        <div class="badge-photo-container">
+                                            <img class="photo-popup" src="" alt="Badge Photo">
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -294,48 +295,39 @@
         </section>
     </main>
 
-    <!-- FCLM Task Section -->
     <section class="fclm-task-container">
         <div class="task-sections">
             <div class="task-column">
                 <h3 class="section-header">TASK INDUCT</h3>
-                <button class="task-button blue" data-task="truck-marshall">TRUCK MARSHALL</button>
-                <button class="task-button blue" data-task="water-spider">WATER SPIDER</button>
-                <button class="task-button blue" data-task="feeder">FEEDER</button>
-                <button class="task-button blue" data-task="problem-solve">PROBLEM SOLVE</button>
-                <button class="task-button blue" data-task="truck-relo">TRUCK RELO</button>
-                <button class="task-button blue" data-task="carico-xpt">CARICO XPT</button>
+                <button class="task-button blue">TRUCK MARSHALL</button>
+                <button class="task-button blue">WATER SPIDER</button>
+                <button class="task-button blue">FEEDER</button>
+                <button class="task-button blue">PROBLEM SOLVE</button>
+                <button class="task-button blue">TRUCK RELO</button>
             </div>
             <div class="task-column">
                 <h3 class="section-header">TASK FINGER</h3>
-                <button class="task-button yellow" data-task="straightener">STRAIGHTENER</button>
-                <button class="task-button yellow" data-task="picker">PICKER</button>
-                <button class="task-button yellow" data-task="diverter">DIVERTER</button>
-                <button class="task-button yellow" data-task="readiness">READINESS</button>
-                <button class="task-button orange" data-task="engage">ENGAGE</button>
+                <button class="task-button yellow">STRAIGHTENER</button>
+                <button class="task-button yellow">PICKER</button>
+                <button class="task-button yellow">DIVERTER</button>
+                <button class="task-button yellow">READINESS</button>
+                <button class="task-button orange">ENGAGE</button>
             </div>
             <div class="task-column">
                 <h3 class="section-header">OTHER</h3>
-                <button class="task-button green" data-task="5s">5S</button>
-                <button class="task-button green" data-task="ambassador">AMBASSADOR</button>
-                <button class="task-button green" data-task="new-hire">NEW HIRE</button>
-                <button class="task-button green" data-task="all-hands">ALL HANDS</button>
-                <button class="task-button orange" data-task="overstaff">OVERSTAFF</button>
+                <button class="task-button green">5S</button>
+                <button class="task-button green">AMBASSADOR</button>
+                <button class="task-button green">NEW HIRE</button>
+                <button class="task-button green">ALL HANDS</button>
+                <button class="task-button orange">OVERSTAFF</button>
             </div>
         </div>
     </section>
 
-    <!-- Notification Container -->
-    <div id="notification-container" aria-live="polite"></div>
+    <div id="notification-container"></div>
 
-    <!-- Loading Spinner -->
-    <div id="loader" class="loader" hidden></div>
-
-    <!-- Scripts -->
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<script src="script.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

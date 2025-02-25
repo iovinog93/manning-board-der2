@@ -1,3 +1,19 @@
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "manning-board.firebaseapp.com",
+    databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "manning-board",
+    storageBucket: "manning-board.firestorage.app",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 // Global variables
 let selectedInputs = [];
 
@@ -55,7 +71,7 @@ function generateInductTables() {
                             <span class="table-data">Receiver</span>
                             <input type="text" class="name-input" placeholder="Enter login">
                             <div class="badge-container">
-                                <div class="badge-icon">📷</div>
+                                   <div class="badge-icon">📷</div>
                                 <img class="photo-popup" src="" alt="Badge Photo">
                             </div>
                         </div>
@@ -91,35 +107,6 @@ function generateInductTables() {
     return html;
 }
 
-function generateTaskSections() {
-    return `
-        <div class="task-column">
-            <div class="section-header">TASK INDUCT</div>
-            <button class="task-button blue">TRUCK MARSHALL</button>
-            <button class="task-button blue">WATER SPIDER</button>
-            <button class="task-button blue">FEEDER</button>
-            <button class="task-button blue">PROBLEM</button>
-            <button class="task-button blue">TRUCK RELO</button>
-            <button class="task-button blue">CARICO XPT</button>
-        </div>
-        <div class="task-column">
-            <div class="section-header">TASK FINGER</div>
-            <button class="task-button yellow">STRAIGHTENER</button>
-            <button class="task-button yellow">PICKER</button>
-            <button class="task-button yellow">DIVERTER</button>
-            <button class="task-button yellow">READINESS</button>
-            <button class="task-button orange">ENGAGE</button>
-        </div>
-        <div class="task-column">
-            <div class="section-header">OTHER</div>
-            <button class="task-button green">5S</button>
-            <button class="task-button green">AMBASSADOR</button>
-            <button class="task-button green">NEW HIRE</button>
-            <button class="task-button green">ALL HANDS</button>
-            <button class="task-button orange">OVERSTAFF</button>
-        </div>
-    `;
-}
 // Badge Photo Functions
 function updateBadgePhoto(input, imgElement) {
     const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
@@ -184,12 +171,8 @@ function saveData() {
     });
     
     database.ref('manning').set(data)
-        .then(() => {
-            console.log('Data saved successfully');
-        })
-        .catch((error) => {
-            console.error('Error saving data:', error);
-        });
+        .then(() => console.log('Data saved successfully'))
+        .catch((error) => console.error('Error saving data:', error));
 }
 
 function loadData() {
@@ -208,85 +191,20 @@ function loadData() {
     });
 }
 
-// Event Listeners Setup
-function setupEventListeners() {
-    // Input events
-    document.querySelectorAll('.name-input').forEach(input => {
-        input.addEventListener('click', () => selectInput(input));
-        input.addEventListener('input', () => {
-            updateBadgePhoto(input, input.nextElementSibling.querySelector('img'));
-            saveData();
-        });
-    });
-
-    // Badge photo events
-    document.querySelectorAll('.badge-icon').forEach(icon => {
-        icon.addEventListener('mouseover', () => showPhoto(icon));
-        icon.addEventListener('mouseout', () => hidePhoto(icon));
-    });
-
-    // Task button events
-    document.querySelectorAll('.task-button').forEach(button => {
-        button.addEventListener('click', () => {
-            console.log('Task clicked:', button.textContent);
-            // Add task-specific logic here
-        });
-    });
-}
-
-// Page Initialization
-function initializePage() {
-    // Generate Finger C content
-    document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
-    document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
-
-    // Generate Finger B content
-    document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
-    document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
-
-    // Generate Finger A content
-    document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
-    document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
-
-    // Generate Induct Tables
-    document.getElementById('induct-tables-container').innerHTML = generateInductTables();
-
-    // Generate Task Sections
-    document.getElementById('task-sections-container').innerHTML = generateTaskSections();
-
-    // Setup event listeners
-    setupEventListeners();
-
-    // Load saved data
-    loadData();
-
-    console.log('Page initialized successfully');
-}
-
-// Start initialization when document is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-    initializePage();
-}
-// Aggiungi questo JavaScript al tuo file main.js
-document.addEventListener('DOMContentLoaded', function() {
+// Sidebar Functions
+function initializeSidebar() {
     const sidebar = document.getElementById('sidebar');
     const openBtn = document.getElementById('openSidebar');
     const closeBtn = document.getElementById('closeSidebar');
-    
-    // Crea l'overlay
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
     document.body.appendChild(overlay);
 
-    // Apri sidebar
     openBtn.addEventListener('click', () => {
         sidebar.classList.add('open');
         overlay.classList.add('show');
     });
 
-    // Chiudi sidebar
     function closeSidebar() {
         sidebar.classList.remove('open');
         overlay.classList.remove('show');
@@ -295,26 +213,16 @@ document.addEventListener('DOMContentLoaded', function() {
     closeBtn.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
 
-    // Gestione elementi espandibili
     document.querySelectorAll('.expandable').forEach(item => {
         item.addEventListener('click', () => {
             item.classList.toggle('open');
         });
     });
-});
+}
 
-
-// Monitor Firebase connection
-database.ref('.info/connected').on('value', (snap) => {
-    console.log('Connection state:', snap.val() ? 'connected' : 'disconnected');
-});
-// Aggiungi questo al tuo JavaScript esistente
-function initializeAdditionalPositions() {
-    // Seleziona tutti gli input nelle nuove posizioni
-    const additionalInputs = document.querySelectorAll('.additional-positions .name-input');
-    
-    // Applica gli stessi event listener degli input esistenti
-    additionalInputs.forEach(input => {
+// Event Listeners Setup
+function setupEventListeners() {
+    document.querySelectorAll('.name-input').forEach(input => {
         input.addEventListener('click', () => selectInput(input));
         input.addEventListener('input', () => {
             updateBadgePhoto(input, input.nextElementSibling.querySelector('img'));
@@ -322,36 +230,35 @@ function initializeAdditionalPositions() {
         });
     });
 
-    // Applica gli stessi event listener per i badge
-    const additionalBadges = document.querySelectorAll('.additional-positions .badge-icon');
-    additionalBadges.forEach(icon => {
+    document.querySelectorAll('.badge-icon').forEach(icon => {
         icon.addEventListener('mouseover', () => showPhoto(icon));
         icon.addEventListener('mouseout', () => hidePhoto(icon));
     });
 }
 
-// Modifica la funzione saveData per includere le nuove posizioni
-function saveData() {
-    const allInputs = document.querySelectorAll('.name-input');
-    const data = {};
+// Page Initialization
+function initializePage() {
+    document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
+    document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
+    document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
+    document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
+    document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
+    document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
+    document.getElementById('induct-tables-container').innerHTML = generateInductTables();
     
-    allInputs.forEach((input, index) => {
-        if (input.value) {
-            // Aggiungi un identificatore per la posizione
-            const positionRow = input.closest('.position-row');
-            const positionId = positionRow ? positionRow.dataset.position : `input_${index}`;
-            data[positionId] = input.value;
-        }
-    });
-    
-    database.ref('manning').set(data)
-        .then(() => console.log('Data saved successfully'))
-        .catch((error) => console.error('Error saving data:', error));
+    setupEventListeners();
+    initializeSidebar();
+    loadData();
 }
 
-// Aggiungi questa chiamata alla fine della tua funzione initializePage
-document.addEventListener('DOMContentLoaded', function() {
+// Start initialization when document is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePage);
+} else {
     initializePage();
-    initializeAdditionalPositions();
-});
+}
 
+// Monitor Firebase connection
+database.ref('.info/connected').on('value', (snap) => {
+    console.log('Connection state:', snap.val() ? 'connected' : 'disconnected');
+});

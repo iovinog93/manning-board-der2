@@ -130,10 +130,32 @@ function createInductTables() {
                         <td>
                             <div class="table-row-content">
                                 <span class="table-data">Table ${i + 1}</span>
-                                <input type="text" class="name-input" placeholder="Enter login">
-                                <div class="badge-container">
-                                    <button class="badge-icon">📷</button>
-                                    <img class="photo-popup" src="" alt="Badge Photo">
+                                
+                                <!-- Pusher -->
+                                <div class="input-group">
+                                    <input type="text" class="name-input" placeholder="Pusher">
+                                    <div class="badge-container">
+                                        <button class="badge-icon">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                    </div>
+                                </div>
+                                
+                                <!-- Receiver -->
+                                <div class="input-group">
+                                    <input type="text" class="name-input" placeholder="Receiver">
+                                    <div class="badge-container">
+                                        <button class="badge-icon">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                    </div>
+                                </div>
+                                
+                                <!-- Feeder -->
+                                <div class="input-group">
+                                    <input type="text" class="name-input" placeholder="Feeder">
+                                    <div class="badge-container">
+                                        <button class="badge-icon">📷</button>
+                                        <img class="photo-popup" src="" alt="Badge Photo">
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -144,6 +166,7 @@ function createInductTables() {
     `;
     inductTablesContainer.innerHTML = tableHTML;
 }
+
 
 // Generate Aisle Rows
 function generateAisleRows(letter, start, end, isDualInput = false) {

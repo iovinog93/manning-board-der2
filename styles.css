@@ -41,7 +41,6 @@
 
 html {
     font-size: 16px;
-    overflow-x: auto;
 }
 
 body {
@@ -53,6 +52,7 @@ body {
     background-color: #1a1a1a;
     color: white;
     overflow-x: auto;
+    margin-bottom: 200px; /* Spazio per il task container */
 }
 
 /* Sidebar Styles */
@@ -167,19 +167,19 @@ body {
 /* Main Container */
 .content-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: var(--spacing-xl);
     padding: var(--spacing-lg);
     margin-left: 60px;
-    width: fit-content;
+    width: max-content;
+    overflow-x: auto;
 }
 /* Fingers Section */
 .fingers-section {
     display: flex;
     flex-direction: row;
     gap: var(--spacing-lg);
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: var(--spacing-xl);
+    flex-shrink: 0;
 }
 
 .finger-pair {
@@ -308,14 +308,18 @@ body {
 
 /* Tables Section */
 .tables-section {
-    margin-top: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    margin-left: var(--spacing-xl);
+    flex-shrink: 0;
 }
 
 .roles-table {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-lg);
     background-color: #2c2c2c;
     border-radius: var(--border-radius-md);
     overflow: hidden;
@@ -346,28 +350,38 @@ body {
     font-weight: bold;
 }
 
+/* Additional Roles Container */
+.additional-roles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
 /* FCLM Task Section */
 .fclm-task-container {
-    margin-top: var(--spacing-xl);
-    width: calc(100% - 60px);
-    margin-left: 60px;
-    padding: var(--spacing-lg);
+    position: fixed;
+    bottom: 0;
+    left: 60px;
+    right: 0;
     background-color: #333;
-    border-radius: var(--border-radius-lg);
-    min-width: max-content;
+    padding: var(--spacing-lg);
+    z-index: 100;
+    border-top: 1px solid var(--border-color);
 }
 
 .task-sections {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .task-column {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+    min-width: 200px;
 }
 
 .section-header {
@@ -417,6 +431,7 @@ body {
 }
 
 .notification {
+  
     padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius-md);
     color: white;
@@ -432,44 +447,27 @@ body {
 
 /* Animations */
 @keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 /* Media Queries */
 @media (max-width: 1800px) {
-    body {
+    .content-container {
         overflow-x: auto;
-    }
-    
-    .content-container,
-    .fingers-section,
-    .fclm-task-container {
-        min-width: max-content;
+        padding-bottom: 200px;
     }
 }
 
 /* Print Styles */
 @media print {
-    .sidebar,
-    .menu-trigger,
-    .task-button,
-    .notification,
-    .overlay {
+    .sidebar, .menu-trigger, .task-button, .notification, .overlay {
         display: none !important;
     }
-
     body {
         padding: 0;
         min-width: auto;
     }
-
     .content-container {
         margin: 0;
         padding: 0;

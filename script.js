@@ -1,11 +1,11 @@
 // script.js
 const firebaseConfig = {
-    apiKey: "***************************************",
+    apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "************",
+    messagingSenderId: "30137335760",
     appId: "1:301373357630:web:344c0956ea271250131b6f",
     measurementId: "YOG-R0PEJ95MQ4"
 };

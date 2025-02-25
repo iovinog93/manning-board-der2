@@ -68,7 +68,6 @@ body {
     min-width: 100%;
     overflow-x: auto;
 }
-
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
@@ -172,21 +171,20 @@ body {
 .fingers-section {
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    gap: 100px; /* Aumentato lo spazio tra i finger */
     flex-shrink: 0;
     width: max-content;
     white-space: nowrap;
-    margin-right: 100px;
+    margin-right: 150px; /* Aumentato il margine destro */
 }
-
 .finger-pair {
     display: inline-block;
     flex: 0 0 auto;
-    width: 600px;
+    width: 800px; /* Aumentata significativamente la larghezza */
     background-color: #2c2c2c;
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
-    margin-right: 40px;
+    margin-right: 60px; /* Aumentato il margine tra i finger */
     vertical-align: top;
 }
 
@@ -202,7 +200,7 @@ body {
 
 .columns-container {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: 20px; /* Aumentato lo spazio tra le colonne */
 }
 
 .finger-column {
@@ -210,7 +208,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    min-width: 260px;
+    min-width: 350px; /* Aumentata la larghezza minima */
 }
 
 .finger-subheader {
@@ -237,6 +235,7 @@ body {
     padding: var(--spacing-xs);
     background-color: #333;
     border-radius: var(--border-radius-sm);
+    width: 100%; /* Assicura che occupi tutta la larghezza */
 }
 
 .aisle {
@@ -262,11 +261,12 @@ body {
     margin-right: 30px;
     min-width: 160px;
 }
-
 .input-pair {
     display: flex;
-    gap: 30px;
+    gap: 40px; /* Aumentato lo spazio tra gli input */
     flex: 1;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .name-input {
@@ -311,7 +311,7 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 400px;
-    margin-left: 60px;
+    margin-left: 100px; /* Aumentato il margine sinistro */
     flex-shrink: 0;
     position: relative;
     z-index: 1;

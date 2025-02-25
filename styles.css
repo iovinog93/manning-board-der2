@@ -47,13 +47,12 @@ html {
 body {
     margin: 0;
     padding: var(--spacing-lg);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-                 Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     min-width: 1800px;
     background-color: #1a1a1a;
-    color: var(--primary-color);
-    height: 100vh;
-    overflow-y: auto; /* Permette lo scroll verticale */
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -77,10 +76,8 @@ body {
 .content-container {
     display: flex;
     gap: var(--spacing-xl);
-    width: max-content;
     padding: var(--spacing-lg);
     margin-left: 60px;
-    margin-bottom: 200px; /* Aggiunge spazio in fondo */
 }
 
 /* Sidebar Styles */
@@ -336,20 +333,17 @@ body {
 
 .photo-popup {
     display: none;
-    position: absolute; /* Cambiato da fixed ad absolute */
+    position: absolute;
     z-index: 1000;
-    left: 100%; /* Posiziona l'immagine subito dopo l'icona */
-    top: -65px; /* Centra verticalmente rispetto all'input */
-    margin-left: 10px; /* Aggiunge un po' di spazio tra l'icona e l'immagine */
-    border: 2px solid var(--primary-color);
-    background-color: rgb(15, 13, 13);
-    padding: var(--spacing-xs);
+    right: -160px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 150px;
     height: 150px;
-    object-fit: contain;
-    pointer-events: none;
-    box-shadow: var(--shadow-lg);
+    background-color: white;
+    border: 2px solid var(--primary-color);
     border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-lg);
 }
 .photo-popup.visible {
     display: block;
@@ -364,8 +358,8 @@ body {
 /* Table Styles */
 .tables-section {
     display: flex;
+    flex-direction: column;
     gap: var(--spacing-lg);
-    margin-bottom: 100px; /* Aggiunge spazio dopo le tabelle */
 }
 
 .roles-table,
@@ -418,18 +412,11 @@ body {
 
 /* FCLM Task Section Styles */
 .fclm-task-container {
-    position: relative;
-    margin-top: var(--spacing-xl);
+    margin-top: auto; /* Spinge la sezione verso il basso */
     width: calc(100% - 60px);
-    background-color: #333;
-    padding: var(--spacing-lg);
-    border: 1px solid #000;
-    border-radius: var(--border-radius-lg);
     margin-left: 60px;
-    box-shadow: var(--shadow-lg);
-    margin-bottom: 50px;
+    padding: var(--spacing-lg);
 }
-
 .task-sections {
     display: flex;
     justify-content: space-between;
@@ -634,10 +621,10 @@ body {
         min-width: auto;
     }
 
-    .content-container {
-        margin: 0;
-        padding: 0;
+      .content-container {
+        margin-bottom: 100px;
     }
+    
 
     .finger-pair,
     .roles-table,
@@ -664,6 +651,23 @@ body {
         scroll-behavior: auto !important;
     }
 }
+/* Media query per schermi più piccoli */
+@media screen and (max-height: 900px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .content-container {
+        margin-bottom: 100px;
+    }
+    
+    .fclm-task-container {
+        position: relative;
+        margin-top: 50px;
+    }
+}
+
 
 /* High Contrast Mode */
 @media (forced-colors: active) {
@@ -704,10 +708,8 @@ body {
 }
 
 .input-group {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-right: var(--spacing-md);
+    position: relative;
+    overflow: visible; /* Permette alle foto di essere visibili fuori dal container */
 }
 
 .table-data {
@@ -716,10 +718,17 @@ body {
 }
 
 #induct-tables-container {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 /* Gestione delle tabelle dei ruoli di supporto */
 .roles-table {
+    margin-bottom: 20px;
+}
+.additional-roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: 30px;
     margin-bottom: 30px;
 }

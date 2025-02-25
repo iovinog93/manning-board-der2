@@ -1,11 +1,11 @@
-// script.js
+// Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
+    apiKey: "***************************************",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "30137335760",
+    messagingSenderId: "************",
     appId: "1:301373357630:web:344c0956ea271250131b6f",
     measurementId: "YOG-R0PEJ95MQ4"
 };
@@ -39,12 +39,65 @@ function hideLoading() {
     loaders.forEach(loader => loader.remove());
 }
 
-// Input Validation
-function validateInput(value) {
-    return /^[a-zA-Z0-9._-]+$/.test(value);
+// Photo Functions
+function showPhoto(element) {
+    const img = element.nextElementSibling;
+    if (img.src && img.src.includes('uid=')) {
+        img.style.display = 'block';
+    }
 }
 
-// Debounce Function
+function hidePhoto(element) {
+    element.nextElementSibling.style.display = 'none';
+}
+
+// Input Selection Functions
+function selectInput(input) {
+    if (selectedInputs.includes(input)) {
+        input.classList.remove('selected-input');
+        selectedInputs = selectedInputs.filter(i => i !== input);
+    } else if (selectedInputs.length >= 2) {
+        selectedInputs.forEach(inp => inp.classList.remove('selected-input'));
+        selectedInputs = [input];
+        input.classList.add('selected-input');
+    } else {
+        selectedInputs.push(input);
+        input.classList.add('selected-input');
+    }
+
+    if (selectedInputs.length === 2) {
+        swapSelected();
+    }
+}
+
+function swapSelected() {
+    if (selectedInputs.length === 2) {
+        const temp = selectedInputs[0].value;
+        selectedInputs[0].value = selectedInputs[1].value;
+        selectedInputs[1].value = temp;
+
+        selectedInputs.forEach(input => {
+            updateBadgePhoto(input);
+            input.classList.remove('selected-input');
+        });
+
+        selectedInputs = [];
+           saveData();
+    }
+}
+
+// Badge Photo Functions
+function updateBadgePhoto(input) {
+    if (!input.value) return;
+    const imgElement = input.closest('.table-row-content, .aisle-row')
+                           .querySelector('.photo-popup');
+    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+    imgElement.src = baseUrl + input.value;
+}
+
+// Firebase Functions
+const debouncedSaveData = debounce(saveData, 1000);
+
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -57,11 +110,54 @@ function debounce(func, wait) {
     };
 }
 
+async function saveData() {
+    const inputs = document.querySelectorAll('.name-input');
+    const data = {};
+    
+    inputs.forEach((input, index) => {
+        if (input.value) {
+            data[index] = input.value;
+        }
+    });
+    
+    try {
+        showLoading();
+        await database.ref('manning').set(data);
+        showNotification('Data saved successfully', 'success');
+    } catch (error) {
+        console.error('Error saving data:', error);
+        showNotification('Error saving data', 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function loadData() {
+    try {
+        showLoading();
+        const snapshot = await database.ref('manning').once('value');
+        const data = snapshot.val() || {};
+        const inputs = document.querySelectorAll('.name-input');
+        
+        inputs.forEach((input, index) => {
+            if (data[index]) {
+                input.value = data[index];
+                updateBadgePhoto(input);
+            }
+        });
+    } catch (error) {
+        console.error('Error loading data:', error);
+        showNotification('Error loading data', 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
 // DOM Generation Functions
 function generateAisleRows(letter, start, end, isDualInput = false) {
     let html = '';
     for (let i = start; i <= end; i++) {
-        const aisleNumber = i.toString().padStart(2, '0'); // Ensure 2 digits
+        const aisleNumber = i.toString().padStart(2, '0');
         if (isDualInput) {
             html += `
                 <div class="aisle-row">
@@ -128,82 +224,7 @@ function createInductTables() {
     inductTablesContainer.innerHTML = tableHTML;
 }
 
-// Badge Photo Functions
-const photoCache = new Map();
-
-async function getBadgePhoto(uid) {
-    if (!validateInput(uid)) return '';
-    if (photoCache.has(uid)) return photoCache.get(uid);
-    
-    const baseUrl = 'https://badgephotos.corp.amazon.com/';
-    try {
-        const response = await fetch(`${baseUrl}?uid=${uid}`);
-        const photoUrl = response.url;
-        photoCache.set(uid, photoUrl);
-        return photootoUrl;
-    } catch (error) {
-        console.error('Error fetching badge photo:', error);
-        return '';
-    }
-}
-
-function updateBadgePhoto(inputput) {
-    if (!validateInput(input.value)) {
-        showNotification('Invalid input format', 'error');
-        return;
-    }
-    const imgElement = input.nextElementSibling.querySelector('img');
-    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
-    imgElement.src = baseUrl + input.value;
-}
-
-// Firebase Functions
-const debouncedSaveData = debounce(saveData, 1000);
-
-async function saveData() {
-    const inputs = document.querySelectorAll('.name-input');
-    const data = {};
-    
-    inputs.forEach((input, index) => {
-        if (input.value) {
-            data[index] = input.value;
-        }
-    });
-    
-    try {
-        showLoading();
-        await database.ref('manning').set(data);
-        showNotification('Data saved successfully', 'success');
-    } catch (error) {
-        console.error('Error saving data:', error);
-        showNotification('Error saving data', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-async function loadData() {
-    try {
-        showLoading();
-        const snapshot = await database.ref('manning').once('value');
-        const data = snapshot.val() || {};
-        const inputs = document.querySelectorAll('.name-input');
-        
-        inputs.forEach((input, index) => {
-            if (data[index]) {
-                input.value = data[index];
-                updateBadgePhoto(input);
-            }
-        });
-    } catch (error) {
-        console.error('Error loading data:', error);
-        showNotification('Error loading data', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-// Event Handlers
+// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     // Generate content
     document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);

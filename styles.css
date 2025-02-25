@@ -50,9 +50,7 @@ body {
     min-width: 1800px;
     background-color: #1a1a1a;
     min-height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+    overflow: auto; /* Permette entrambi gli scroll */
 }
 
 
@@ -78,7 +76,9 @@ body {
     gap: var(--spacing-xl);
     padding: var(--spacing-lg);
     margin-left: 60px;
+    width: max-content; /* Permette al contenuto di espandersi */
 }
+
 
 /* Sidebar Styles */
 .sidebar {
@@ -185,7 +185,7 @@ body {
 .fingers-section {
     display: flex;
     gap: var(--spacing-lg);
-    min-width: 1400px;
+    min-width: max-content;
 }
 
 .finger-pair {
@@ -282,6 +282,8 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
+    position: relative;
+    overflow: visible;
 }
 
 .name-input {
@@ -412,10 +414,11 @@ body {
 
 /* FCLM Task Section Styles */
 .fclm-task-container {
-    margin-top: auto; /* Spinge la sezione verso il basso */
+    margin-top: var(--spacing-xl);
     width: calc(100% - 60px);
     margin-left: 60px;
     padding: var(--spacing-lg);
+    min-width: max-content;
 }
 .task-sections {
     display: flex;

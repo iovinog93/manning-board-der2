@@ -66,6 +66,7 @@ body {
     margin-left: 60px;
     width: max-content;
     min-width: 100%;
+    overflow-x: auto;
 }
 
 /* Sidebar Styles */
@@ -171,20 +172,21 @@ body {
 .fingers-section {
     display: flex;
     flex-direction: row;
-    gap: var(--spacing-lg);
+    gap: 60px;
     flex-shrink: 0;
     width: max-content;
     white-space: nowrap;
+    margin-right: 100px;
 }
 
 .finger-pair {
     display: inline-block;
     flex: 0 0 auto;
-    width: 540px;
+    width: 600px;
     background-color: #2c2c2c;
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
-    margin-right: var(--spacing-lg);
+    margin-right: 40px;
     vertical-align: top;
 }
 
@@ -208,7 +210,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    min-width: 240px;
+    min-width: 260px;
 }
 
 .finger-subheader {
@@ -229,7 +231,7 @@ body {
 }
 
 .aisle-row {
-       display: flex;
+    display: flex;
     align-items: center;
     gap: var(--spacing-md);
     padding: var(--spacing-xs);
@@ -244,7 +246,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--sp-spacing-xs);
+    padding: var(--spacing-xs);
     font-size: 0.875rem;
     background-color: white;
     border-radius: var(--border-radius-sm);
@@ -257,12 +259,13 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 20px;
+    margin-right: 30px;
+    min-width: 160px;
 }
 
 .input-pair {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     flex: 1;
 }
 
@@ -308,8 +311,10 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 400px;
-    margin-left: var(--spacing-xl);
+    margin-left: 60px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .roles-table {
@@ -320,6 +325,8 @@ body {
     background-color: #2c2c2c;
     border-radius: var(--border-radius-md);
     overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .roles-table th {
@@ -386,7 +393,7 @@ body {
     color: var(--primary-color);
     text-align: center;
     padding: var(--spacing-md);
-    font-weight: bold;
+    font-weigeight: bold;
     border-radius: var(--border-radius-md);
     margin-bottom: var(--spacing-md);
 }
@@ -452,6 +459,13 @@ body {
     .content-container {
         overflow-x: auto;
         padding-bottom: 200px;
+    }
+}
+
+@media (min-width: 2000px) {
+    .content-container {
+        justify-content: flex-start;
+        gap: 80px;
     }
 }
 

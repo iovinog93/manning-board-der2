@@ -333,7 +333,7 @@ body {
 }
 
 .photo-popup {
-    display: block;
+    display: none;
     position: absolute;
     z-index: 1000;
     left: 100%;

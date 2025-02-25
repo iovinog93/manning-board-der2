@@ -26,29 +26,31 @@ function showNotification(message, type = 'info') {
     setTimeout(() => notification.remove(), 3000);
 }
 
-function showLoading() {
-    if (!document.querySelector('.loader')) {
-        const loader = document.createElement('div');
-        loader.className = 'loader';
-        document.body.appendChild(loader);
+function padNumber(number) {
+    return number < 10 ? '0' + number : number.toString();
+}
+
+// Badge Photo Functions
+function showPhoto(badgeIcon) {
+    const photoPopup = badgeIcon.parentElement.querySelector('.photo-popup');
+    if (photoPopup && photoPopup.src) {
+        photoPopup.style.display = 'block';
     }
 }
 
-function hideLoading() {
-    const loaders = document.querySelectorAll('.loader');
-    loaders.forEach(loader => loader.remove());
-}
-
-// Photo Functions
-function showPhoto(element) {
-    const img = element.nextElementSibling;
-    if (img.src && img.src.includes('uid=')) {
-        img.style.display = 'block';
+function hidePhoto(badgeIcon) {
+    const photoPopup = badgeIcon.parentElement.querySelector('.photo-popup');
+    if (photoPopup) {
+        photoPopup.style.display = 'none';
     }
 }
 
-function hidePhoto(element) {
-    element.nextElementSibling.style.display = 'none';
+function updateBadgePhoto(input) {
+    const photoPopup = input.parentElement.querySelector('.photo-popup');
+    if (photoPopup && input.value) {
+        const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
+        photoPopup.src = baseUrl + input.value.trim();
+    }
 }
 
 // Input Selection Functions
@@ -66,11 +68,11 @@ function selectInput(input) {
     }
 
     if (selectedInputs.length === 2) {
-        swapSelected();
+        swapInputs();
     }
 }
 
-function swapSelected() {
+function swapInputs() {
     if (selectedInputs.length === 2) {
         const temp = selectedInputs[0].value;
         selectedInputs[0].value = selectedInputs[1].value;
@@ -82,120 +84,39 @@ function swapSelected() {
         });
 
         selectedInputs = [];
-           saveData();
+        saveToFirebase();
     }
-}
-
-// Badge Photo Functions
-function updateBadgePhoto(input) {
-    if (!input.value) return;
-    const imgElement = input.closest('.table-row-content, .aisle-row')
-                           .querySelector('.photo-popup');
-    const baseUrl = 'https://badgephotos.corp.amazon.com/?fullsizeimage=1&give404ifmissing=1&uid=';
-    imgElement.src = baseUrl + input.value;
 }
 
 // Firebase Functions
-const debouncedSaveData = debounce(saveData, 1000);
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-async function saveData() {
-    const inputs = document.querySelectorAll('.name-input');
+function saveToFirebase() {
     const data = {};
-    
-    inputs.forEach((input, index) => {
-        if (input.value) {
-            data[index] = input.value;
+    document.querySelectorAll('.name-input').forEach((input, index) => {
+        if (input.value.trim()) {
+            data[index] = input.value.trim();
         }
     });
-    
-    try {
-        showLoading();
-        await database.ref('manning').set(data);
-        showNotification('Data saved successfully', 'success');
-    } catch (error) {
-        console.error('Error saving data:', error);
-        showNotification('Error saving data', 'error');
-    } finally {
-        hideLoading();
-    }
+
+    database.ref('manning').set(data)
+        .then(() => showNotification('Saved successfully', 'success'))
+        .catch(error => showNotification('Error saving data', 'error'));
 }
 
-async function loadData() {
-    try {
-        showLoading();
-        const snapshot = await database.ref('manning').once('value');
-        const data = snapshot.val() || {};
-        const inputs = document.querySelectorAll('.name-input');
-        
-        inputs.forEach((input, index) => {
-            if (data[index]) {
-                input.value = data[index];
-                updateBadgePhoto(input);
-            }
-        });
-    } catch (error) {
-        console.error('Error loading data:', error);
-        showNotification('Error loading data', 'error');
-    } finally {
-        hideLoading();
-    }
+function loadFromFirebase() {
+    database.ref('manning').once('value')
+        .then(snapshot => {
+            const data = snapshot.val() || {};
+            document.querySelectorAll('.name-input').forEach((input, index) => {
+                if (data[index]) {
+                    input.value = data[index];
+                    updateBadgePhoto(input);
+                }
+            });
+        })
+        .catch(error => showNotification('Error loading data', 'error'));
 }
 
-// DOM Generation Functions
-function generateAisleRows(letter, start, end, isDualInput = false) {
-    let html = '';
-    for (let i = start; i <= end; i++) {
-        const aisleNumber = i.toString().padStart(2, '0');
-        if (isDualInput) {
-            html += `
-                <div class="aisle-row">
-                    <div class="aisle">${letter}${aisleNumber}</div>
-                    <div class="input-pair">
-                        <div class="input-group">
-                            <input type="text" class="name-input" placeholder="Picker">
-                            <div class="badge-container">
-                                <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" class="name-input" placeholder="Stower">
-                            <div class="badge-container">
-                                <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="aisle-row">
-                    <div class="aisle">${letter}${aisleNumber}</div>
-                    <input type="text" class="name-input" placeholder="Enter login">
-                    <div class="badge-container">
-                        <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                        <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
-                    </div>
-                </div>
-            `;
-        }
-    }
-    return html;
-}
-
+// Generate Induct Tables
 function createInductTables() {
     const inductTablesContainer = document.getElementById('induct-tables-container');
     const tableHTML = `
@@ -211,8 +132,8 @@ function createInductTables() {
                                 <span class="table-data">Table ${i + 1}</span>
                                 <input type="text" class="name-input" placeholder="Enter login">
                                 <div class="badge-container">
-                                    <button class="badge-icon" aria-label="Show badge photo">📷</button>
-                                    <img class="photo-popup" src="" alt="Badge Photo" loading="lazy">
+                                    <button class="badge-icon">📷</button>
+                                    <img class="photo-popup" src="" alt="Badge Photo">
                                 </div>
                             </div>
                         </td>
@@ -224,43 +145,51 @@ function createInductTables() {
     inductTablesContainer.innerHTML = tableHTML;
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
-    // Generate content
-    document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
-    document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
-    document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
-    document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
-    document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
-    document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
-
-    // Create induct tables
-    createInductTables();
-
-    // Setup event delegation
-    document.addEventListener('click', (e) => {
-        if (e.target.matches('.name-input')) {
-            selectInput(e.target);
-        } else if (e.target.matches('.badge-icon')) {
-            showPhoto(e.target);
+// Generate Aisle Rows
+function generateAisleRows(letter, start, end, isDualInput = false) {
+    let html = '';
+    for (let i = start; i <= end; i++) {
+        const aisleNumber = padNumber(i);
+        if (isDualInput) {
+            html += `
+                <div class="aisle-row">
+                    <div class="aisle">${letter}${aisleNumber}</div>
+                    <div class="input-pair">
+                        <div class="input-group">
+                            <input type="text" class="name-input" placeholder="Picker">
+                            <div class="badge-container">
+                                <button class="badge-icon">📷</button>
+                                <img class="photo-popup" src="" alt="Badge Photo">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="name-input" placeholder="Stower">
+                            <div class="badge-container">
+                                <button class="badge-icon">📷</button>
+                                <img class="photo-popup" src="" alt="Badge Photo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="aisle-row">
+                    <div class="aisle">${letter}${aisleNumber}</div>
+                    <input type="text" class="name-input" placeholder="Enter login">
+                    <div class="badge-container">
+                        <button class="badge-icon">📷</button>
+                        <img class="photo-popup" src="" alt="Badge Photo">
+                    </div>
+                </div>
+            `;
         }
-    });
+    }
+    return html;
+}
 
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.matches('.badge-icon')) {
-            hidePhoto(e.target);
-        }
-    });
-
-    // Input event listeners
-    document.querySelectorAll('.name-input').forEach(input => {
-        input.addEventListener('input', () => {
-            updateBadgePhoto(input);
-            debouncedSaveData();
-        });
-    });
-
-    // Sidebar functionality
+// Initialize Sidebar Functions
+function initializeSidebar() {
     const sidebar = document.getElementById('sidebar');
     const openBtn = document.getElementById('openSidebar');
     const closeBtn = document.getElementById('closeSidebar');
@@ -280,7 +209,48 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('show');
     });
+}
 
-    // Load initial data
-    loadData();
+// Document Ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Generate all aisle containers
+    document.getElementById('c1-26-container').innerHTML = generateAisleRows('C', 1, 26);
+    document.getElementById('c27-52-container').innerHTML = generateAisleRows('C', 27, 52);
+    document.getElementById('b1-26-container').innerHTML = generateAisleRows('B', 1, 26, true);
+    document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
+    document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
+    document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
+
+    // Create induct tables
+    createInductTables();
+
+    // Initialize sidebar
+    initializeSidebar();
+
+    // Add event listeners for badge photos and input selection
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('name-input')) {
+            selectInput(e.target);
+        }
+        if (e.target.classList.contains('badge-icon')) {
+            showPhoto(e.target);
+        }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.classList.contains('badge-icon')) {
+            hidePhoto(e.target);
+        }
+    });
+
+    // Add input event listeners
+    document.querySelectorAll('.name-input').forEach(input => {
+        input.addEventListener('input', () => {
+            updateBadgePhoto(input);
+            saveToFirebase();
+        });
+    });
+
+    // Load initial data from Firebase
+    loadFromFirebase();
 });

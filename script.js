@@ -308,3 +308,50 @@ document.addEventListener('DOMContentLoaded', function() {
 database.ref('.info/connected').on('value', (snap) => {
     console.log('Connection state:', snap.val() ? 'connected' : 'disconnected');
 });
+// Aggiungi questo al tuo JavaScript esistente
+function initializeAdditionalPositions() {
+    // Seleziona tutti gli input nelle nuove posizioni
+    const additionalInputs = document.querySelectorAll('.additional-positions .name-input');
+    
+    // Applica gli stessi event listener degli input esistenti
+    additionalInputs.forEach(input => {
+        input.addEventListener('click', () => selectInput(input));
+        input.addEventListener('input', () => {
+            updateBadgePhoto(input, input.nextElementSibling.querySelector('img'));
+            saveData();
+        });
+    });
+
+    // Applica gli stessi event listener per i badge
+    const additionalBadges = document.querySelectorAll('.additional-positions .badge-icon');
+    additionalBadges.forEach(icon => {
+        icon.addEventListener('mouseover', () => showPhoto(icon));
+        icon.addEventListener('mouseout', () => hidePhoto(icon));
+    });
+}
+
+// Modifica la funzione saveData per includere le nuove posizioni
+function saveData() {
+    const allInputs = document.querySelectorAll('.name-input');
+    const data = {};
+    
+    allInputs.forEach((input, index) => {
+        if (input.value) {
+            // Aggiungi un identificatore per la posizione
+            const positionRow = input.closest('.position-row');
+            const positionId = positionRow ? positionRow.dataset.position : `input_${index}`;
+            data[positionId] = input.value;
+        }
+    });
+    
+    database.ref('manning').set(data)
+        .then(() => console.log('Data saved successfully'))
+        .catch((error) => console.error('Error saving data:', error));
+}
+
+// Aggiungi questa chiamata alla fine della tua funzione initializePage
+document.addEventListener('DOMContentLoaded', function() {
+    initializePage();
+    initializeAdditionalPositions();
+});
+

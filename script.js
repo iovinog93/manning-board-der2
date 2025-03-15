@@ -1,11 +1,11 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "***************************************",
+    apiKey: "AIzaSyBRPqn830ynSCDK7Zr_GPOAIso9nITaeiI",
     authDomain: "manning-board.firebaseapp.com",
     databaseURL: "https://manning-board-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "manning-board",
     storageBucket: "manning-board.firestorage.app",
-    messagingSenderId: "************",
+    messagingSenderId: "30137335760",
     appId: "1:301373357630:web:344c0956ea271250131b6f",
     measurementId: "YOG-R0PEJ95MQ4"
 };
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('b27-52-container').innerHTML = generateAisleRows('B', 27, 52, true);
     document.getElementById('a1-26-container').innerHTML = generateAisleRows('A', 1, 26, true);
     document.getElementById('a27-52-container').innerHTML = generateAisleRows('A', 27, 52, true);
-
+    
     // Create induct tables
     createInductTables();
 
@@ -280,4 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load initial data from Firebase
     loadFromFirebase();
+    document.getElementById('laborButton').addEventListener('click', function() {
+        window.location.href = 'https://tuousername.github.io/labor-page/';
+    });
 });
+
+
+

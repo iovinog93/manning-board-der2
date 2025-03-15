@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load initial data from Firebase
     loadFromFirebase();
     document.getElementById('laborButton').addEventListener('click', function() {
-        window.location.href = 'https://tuousername.github.io/labor-page/';
+        window.location.href = 'https://iovinog93.github.io/labor-page/';
     });
 });
 
